@@ -9,6 +9,7 @@ using Kentor.AuthServices.WebSso;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
+using WebGrease.Css.Extensions;
 
 [assembly: OwinStartup(typeof(TestClient.Startup))]
 
@@ -25,7 +26,11 @@ namespace TestClient
                 EntityId = new EntityId("http://localhost:50155/AuthServices"),
                 AuthenticateRequestSigningBehavior = SigningBehavior.Always
             };
-            spOptions.ServiceCertificates.Add(new X509Certificate2(HostingEnvironment.MapPath("~/testclient.pfx"), "test"));
+            spOptions.ServiceCertificates.Add(new ServiceCertificate
+            {
+                Certificate = new X509Certificate2(HostingEnvironment.MapPath("~/testclient.pfx"), "test"),
+                Use = CertificateUse.Signing
+            });
 
             var options = new KentorAuthServicesAuthenticationOptions(false)
             {
