@@ -9,7 +9,6 @@ using Kentor.AuthServices.WebSso;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
-using WebGrease.Css.Extensions;
 
 [assembly: OwinStartup(typeof(TestClient.Startup))]
 
@@ -42,7 +41,7 @@ namespace TestClient
             var idp = new IdentityProvider(new EntityId("http://localhost:5000"), options.SPOptions)
             {
                 SingleSignOnServiceUrl = new Uri("http://localhost:5000/saml/sso"),
-                Binding = Saml2BindingType.HttpRedirect,
+                Binding = Saml2BindingType.HttpPost,
                 WantAuthnRequestsSigned = true
             };
             idp.SigningKeys.AddConfiguredKey(new X509Certificate2(HostingEnvironment.MapPath("~/idsrv3test.cer")));

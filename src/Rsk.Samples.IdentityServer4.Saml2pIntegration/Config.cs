@@ -38,7 +38,6 @@ namespace Rsk.Samples.IdentityServer4.Saml2pIntegration
                     ClientId = "http://localhost:50155/AuthServices",
                     ClientName = "SAML2P Test Client",
                     ProtocolType = IdentityServerConstants.ProtocolTypes.Saml2p,
-                    RedirectUris = {"http://localhost:50155/AuthServices"},
                     AllowedScopes = { "openid", "profile" }
                 }
             };
@@ -54,7 +53,7 @@ namespace Rsk.Samples.IdentityServer4.Saml2pIntegration
                     SigningCertificates = {new X509Certificate2("TestClient.cer")},
                     AssertionConsumerServices =
                     {
-                        new Service(SamlConstants.BindingTypes.HttpPost, "http://localhost:50155/AuthServices/Acs")
+                        new Service(SamlConstants.BindingTypes.HttpPost, "http://localhost:50155/AuthServices/Acs", 1)
                     }
                 }
             };
