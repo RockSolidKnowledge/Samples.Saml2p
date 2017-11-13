@@ -41,7 +41,9 @@ namespace TestClient
             var idp = new IdentityProvider(new EntityId("http://localhost:5000"), options.SPOptions)
             {
                 SingleSignOnServiceUrl = new Uri("http://localhost:5000/saml/sso"),
-                Binding = Saml2BindingType.HttpPost,
+                Binding = Saml2BindingType.HttpRedirect,
+                SingleLogoutServiceUrl = new Uri("http://localhost:5000/saml/slo"),
+                SingleLogoutServiceBinding = Saml2BindingType.HttpPost,
                 WantAuthnRequestsSigned = true
             };
             idp.SigningKeys.AddConfiguredKey(new X509Certificate2(HostingEnvironment.MapPath("~/idsrv3test.cer")));
