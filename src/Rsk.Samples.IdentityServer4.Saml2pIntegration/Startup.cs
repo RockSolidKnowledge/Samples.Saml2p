@@ -18,7 +18,11 @@ namespace Rsk.Samples.IdentityServer4.Saml2pIntegration
                 .AddInMemoryApiResources(Config.GetApis())
                 .AddInMemoryClients(Config.GetClients())
                 .AddTestUsers(TestUsers.Users)
-                .AddSamlPlugin()
+                .AddSamlPlugin(options =>
+                {
+                    options.Licensee = "";
+                    options.LicenseKey = "";
+                })
                 .AddInMemoryServiceProviders(Config.GetServiceProviders());
         }
 
