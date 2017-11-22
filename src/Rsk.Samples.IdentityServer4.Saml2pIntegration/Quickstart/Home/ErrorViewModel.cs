@@ -4,7 +4,7 @@
 
 using IdentityServer4.Models;
 
-namespace Rsk.Samples.IdentityServer4.Saml2pIntegration.Quickstart.Home
+namespace IdentityServer4.Quickstart.UI
 {
     public class ErrorViewModel
     {

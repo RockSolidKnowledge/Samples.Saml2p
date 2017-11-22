@@ -2,14 +2,14 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
-using System.Linq;
-using System.Threading.Tasks;
 using IdentityServer4.Models;
 using IdentityServer4.Services;
 using IdentityServer4.Stores;
 using Microsoft.Extensions.Logging;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Rsk.Samples.IdentityServer4.Saml2pIntegration.Quickstart.Consent
+namespace IdentityServer4.Quickstart.UI
 {
     public class ConsentService
     {
@@ -50,7 +50,7 @@ namespace Rsk.Samples.IdentityServer4.Saml2pIntegration.Quickstart.Consent
                     var scopes = model.ScopesConsented;
                     if (ConsentOptions.EnableOfflineAccess == false)
                     {
-                        scopes = scopes.Where(x => x != global::IdentityServer4.IdentityServerConstants.StandardScopes.OfflineAccess);
+                        scopes = scopes.Where(x => x != IdentityServer4.IdentityServerConstants.StandardScopes.OfflineAccess);
                     }
 
                     grantedConsent = new ConsentResponse
@@ -78,7 +78,7 @@ namespace Rsk.Samples.IdentityServer4.Saml2pIntegration.Quickstart.Consent
                 // communicate outcome of consent back to identityserver
                 await _interaction.GrantConsentAsync(request, grantedConsent);
 
-                // indiate that's it ok to redirect back to authorization endpoint
+                // indicate that's it ok to redirect back to authorization endpoint
                 result.RedirectUri = model.ReturnUrl;
             }
             else
@@ -132,7 +132,7 @@ namespace Rsk.Samples.IdentityServer4.Saml2pIntegration.Quickstart.Consent
 
             vm.ReturnUrl = returnUrl;
 
-            vm.ClientName = client.ClientName;
+            vm.ClientName = client.ClientName ?? client.ClientId;
             vm.ClientUrl = client.ClientUri;
             vm.ClientLogoUrl = client.LogoUri;
             vm.AllowRememberConsent = client.AllowRememberConsent;
@@ -142,7 +142,7 @@ namespace Rsk.Samples.IdentityServer4.Saml2pIntegration.Quickstart.Consent
             if (ConsentOptions.EnableOfflineAccess && resources.OfflineAccess)
             {
                 vm.ResourceScopes = vm.ResourceScopes.Union(new ScopeViewModel[] {
-                    GetOfflineAccessScope(vm.ScopesConsented.Contains(global::IdentityServer4.IdentityServerConstants.StandardScopes.OfflineAccess) || model == null)
+                    GetOfflineAccessScope(vm.ScopesConsented.Contains(IdentityServer4.IdentityServerConstants.StandardScopes.OfflineAccess) || model == null)
                 });
             }
 
@@ -158,7 +158,7 @@ namespace Rsk.Samples.IdentityServer4.Saml2pIntegration.Quickstart.Consent
                 Description = identity.Description,
                 Emphasize = identity.Emphasize,
                 Required = identity.Required,
-                Checked = check || identity.Required,
+                Checked = check || identity.Required
             };
         }
 
@@ -171,7 +171,7 @@ namespace Rsk.Samples.IdentityServer4.Saml2pIntegration.Quickstart.Consent
                 Description = scope.Description,
                 Emphasize = scope.Emphasize,
                 Required = scope.Required,
-                Checked = check || scope.Required,
+                Checked = check || scope.Required
             };
         }
 
@@ -179,7 +179,7 @@ namespace Rsk.Samples.IdentityServer4.Saml2pIntegration.Quickstart.Consent
         {
             return new ScopeViewModel
             {
-                Name = global::IdentityServer4.IdentityServerConstants.StandardScopes.OfflineAccess,
+                Name = IdentityServer4.IdentityServerConstants.StandardScopes.OfflineAccess,
                 DisplayName = ConsentOptions.OfflineAccessDisplayName,
                 Description = ConsentOptions.OfflineAccessDescription,
                 Emphasize = true,

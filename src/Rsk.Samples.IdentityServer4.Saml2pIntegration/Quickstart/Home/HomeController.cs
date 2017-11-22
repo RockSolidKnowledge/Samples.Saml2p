@@ -2,11 +2,11 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
-using System.Threading.Tasks;
 using IdentityServer4.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
-namespace Rsk.Samples.IdentityServer4.Saml2pIntegration.Quickstart.Home
+namespace IdentityServer4.Quickstart.UI
 {
     [SecurityHeaders]
     public class HomeController : Controller

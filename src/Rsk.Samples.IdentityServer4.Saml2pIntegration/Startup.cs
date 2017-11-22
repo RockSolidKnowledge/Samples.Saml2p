@@ -1,8 +1,8 @@
 ﻿using System.Security.Cryptography.X509Certificates;
+using IdentityServer4.Quickstart.UI;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Rsk.Samples.IdentityServer4.Saml2pIntegration.Quickstart;
 
 namespace Rsk.Samples.IdentityServer4.Saml2pIntegration
 {

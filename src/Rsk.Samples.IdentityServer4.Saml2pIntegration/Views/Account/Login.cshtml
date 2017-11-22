@@ -1,5 +1,4 @@
-﻿@using Rsk.Samples.IdentityServer4.Saml2pIntegration.Quickstart.Account
-@model Rsk.Samples.IdentityServer4.Saml2pIntegration.Quickstart.Account.LoginViewModel
+﻿@model LoginViewModel
 
 <div class="login-page">
     <div class="page-header">
@@ -41,7 +40,8 @@
                                     </div>
                                 }
                                 <div class="form-group">
-                                    <button class="btn btn-primary">Login</button>
+                                    <button class="btn btn-primary" name="button" value="login">Login</button>
+                                    <button class="btn btn-default" name="button" value="cancel">Cancel</button>
                                 </div>
                             </fieldset>
                         </form>

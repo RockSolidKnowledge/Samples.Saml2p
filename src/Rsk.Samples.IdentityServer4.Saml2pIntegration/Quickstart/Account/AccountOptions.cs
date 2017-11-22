@@ -4,7 +4,7 @@
 
 using System;
 
-namespace Rsk.Samples.IdentityServer4.Saml2pIntegration.Quickstart.Account
+namespace IdentityServer4.Quickstart.UI
 {
     public class AccountOptions
     {
@@ -19,10 +19,8 @@ namespace Rsk.Samples.IdentityServer4.Saml2pIntegration.Quickstart.Account
         // windows auth enabled.
         public static bool WindowsAuthenticationEnabled = true;
         public static bool IncludeWindowsGroups = false;
-        // specify the Windows authentication schemes you want to use for authentication
-        public static readonly string[] WindowsAuthenticationSchemes = new string[] { "Negotiate", "NTLM" };
-        public static readonly string WindowsAuthenticationProviderName = "Windows";
-        public static readonly string WindowsAuthenticationDisplayName = "Windows";
+        // specify the Windows authentication scheme and display name
+        public static readonly string WindowsAuthenticationSchemeName = "Windows";
 
         public static string InvalidCredentialsErrorMessage = "Invalid username or password";
     }

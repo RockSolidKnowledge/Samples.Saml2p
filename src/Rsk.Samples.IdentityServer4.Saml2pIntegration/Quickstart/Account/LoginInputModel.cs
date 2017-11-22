@@ -4,7 +4,7 @@
 
 using System.ComponentModel.DataAnnotations;
 
-namespace Rsk.Samples.IdentityServer4.Saml2pIntegration.Quickstart.Account
+namespace IdentityServer4.Quickstart.UI
 {
     public class LoginInputModel
     {

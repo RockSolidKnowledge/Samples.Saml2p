@@ -4,7 +4,7 @@
 
 using System.Collections.Generic;
 
-namespace Rsk.Samples.IdentityServer4.Saml2pIntegration.Quickstart.Consent
+namespace IdentityServer4.Quickstart.UI
 {
     public class ConsentViewModel : ConsentInputModel
     {
