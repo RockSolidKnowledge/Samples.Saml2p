@@ -36,7 +36,14 @@ namespace Rsk.Samples.IdentityServer4.Saml2pIntegration
                 new Client
                 {
                     ClientId = "http://localhost:50155/AuthServices",
-                    ClientName = "SAML2P Test Client",
+                    ClientName = "Kentor SAML2P Test Client",
+                    ProtocolType = IdentityServerConstants.ProtocolTypes.Saml2p,
+                    AllowedScopes = { "openid", "profile" }
+                },
+                new Client
+                {
+                    ClientId = "http://localhost:5001/saml",
+                    ClientName = "RSK SAML2P Test Client",
                     ProtocolType = IdentityServerConstants.ProtocolTypes.Saml2p,
                     AllowedScopes = { "openid", "profile" }
                 }
@@ -54,6 +61,15 @@ namespace Rsk.Samples.IdentityServer4.Saml2pIntegration
                     AssertionConsumerServices =
                     {
                         new Service(SamlConstants.BindingTypes.HttpPost, "http://localhost:50155/AuthServices/Acs", 1)
+                    }
+                },
+                new ServiceProvider
+                {
+                    EntityId = "http://localhost:5001/saml",
+                    SigningCertificates = {new X509Certificate2("TestClient.cer")},
+                    AssertionConsumerServices =
+                    {
+                        new Service(SamlConstants.BindingTypes.HttpPost, "http://localhost:5001/signin-saml")
                     }
                 }
             };

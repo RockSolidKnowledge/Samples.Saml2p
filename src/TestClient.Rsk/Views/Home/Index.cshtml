@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<div class="jumbotron">
+    <h1>SAML2P SP (RSK)</h1>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        @if (User.Identity.IsAuthenticated)
+        {
+            <h2>Authenticated</h2>
+            <p>
+                <ul>
+                    @foreach (var claim in User.Claims)
+                    {
+                        <li><strong> @claim.Type:</strong> @claim.Value</li>
+                    }
+                </ul>
+            </p>
+        }
+        else
+        {
+            <h2>Unauthenticated</h2>
+        }
+    </div>
+</div>

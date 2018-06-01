@@ -20,6 +20,8 @@ namespace Rsk.Samples.IdentityServer4.Saml2pIntegration
                 .AddTestUsers(TestUsers.Users)
                 .AddSamlPlugin(options =>
                 {
+                    options.WantAuthenticationRequestsSigned = false;
+
                     options.Licensee = "";
                     options.LicenseKey = "";
                 })
