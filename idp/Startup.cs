@@ -1,6 +1,7 @@
-﻿using System.Security.Cryptography.X509Certificates;
+using System.Security.Cryptography.X509Certificates;
 using IdentityServer4;
 using IdentityServer4.Quickstart.UI;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -54,7 +55,10 @@ namespace idp
             //builder.AddInMemoryIdentityResources(Configuration.GetSection("IdentityResources"));
             //builder.AddInMemoryApiResources(Configuration.GetSection("ApiResources"));
             //builder.AddInMemoryClients(Configuration.GetSection("clients"));
-            
+
+            builder.Services.Configure<CookieAuthenticationOptions>(IdentityServerConstants.DefaultCookieAuthenticationScheme,
+                cookie => { cookie.Cookie.Name = "idsrv.idp"; });
+
             services.AddAuthentication()
                 .AddGoogle(options =>
                 {
