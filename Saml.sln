@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "idp", "idp\idp.csproj", "{B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "sp", "sp\sp.csproj", "{80E04C21-A159-452D-8D56-812E705D2594}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "idpWithEf", "idpWithEf\idpWithEf.csproj", "{CA651973-310C-4BF1-BE17-8D698F770304}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{80E04C21-A159-452D-8D56-812E705D2594}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{80E04C21-A159-452D-8D56-812E705D2594}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{80E04C21-A159-452D-8D56-812E705D2594}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA651973-310C-4BF1-BE17-8D698F770304}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA651973-310C-4BF1-BE17-8D698F770304}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA651973-310C-4BF1-BE17-8D698F770304}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA651973-310C-4BF1-BE17-8D698F770304}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

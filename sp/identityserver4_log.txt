@@ -1,0 +1,35 @@
+2018-09-19 08:56:29.218 +01:00 [INF] You are using the in-memory version of the persisted grant store. This will store consent decisions, authorization codes, refresh and reference tokens in memory only. If you are using any of those features in production, you want to switch to a different store implementation.
+2018-09-19 08:56:29.265 +01:00 [DBG] Using idsrv as default scheme for authentication
+2018-09-19 08:56:29.269 +01:00 [DBG] Using idsrv as default scheme for sign-in
+2018-09-19 08:56:29.269 +01:00 [DBG] Using idsrv as default scheme for sign-out
+2018-09-19 08:56:29.269 +01:00 [DBG] Using idsrv as default scheme for challenge
+2018-09-19 08:56:29.270 +01:00 [DBG] Using idsrv as default scheme for forbid
+2018-09-19 08:56:41.631 +01:00 [INF] AuthenticationScheme: idsrv was challenged.
+2018-09-19 08:56:43.234 +01:00 [INF] AuthenticationScheme: saml2p was challenged.
+2018-09-19 08:56:54.472 +01:00 [DBG] CORS request made for path: /signin-saml from origin: http://localhost:5000 but was ignored because path was not for an allowed IdentityServer CORS endpoint
+2018-09-19 08:56:54.479 +01:00 [INF] Entering SAML2P authentication handler
+2018-09-19 08:56:54.495 +01:00 [DBG] Starting SAML 2 SSO response validation
+2018-09-19 08:56:54.677 +01:00 [INF] AuthenticationScheme: idsrv.external signed in.
+2018-09-19 08:56:54.690 +01:00 [INF] AuthenticationScheme: idsrv.external was successfully authenticated.
+2018-09-19 08:56:54.733 +01:00 [INF] {
+  "Name": "User Login Success",
+  "Category": "Authentication",
+  "EventType": "Success",
+  "Id": 1000,
+  "Provider": "saml2p",
+  "ProviderUserId": "88421113",
+  "SubjectId": "59f21dfcb42123cc655db1ced53ec5e10b5c0e4205fa545b02b67fe59664e4d3",
+  "DisplayName": "",
+  "Endpoint": "UI",
+  "ActivityId": "0HLGU0LM1AL5C:00000007",
+  "TimeStamp": "2018-09-19T07:56:54Z",
+  "ProcessId": 14120,
+  "LocalIpAddress": "::1:5001",
+  "RemoteIpAddress": "::1"
+}
+2018-09-19 08:56:54.745 +01:00 [DBG] Augmenting SignInContext
+2018-09-19 08:56:54.748 +01:00 [DBG] Adding amr claim with value: external
+2018-09-19 08:56:54.754 +01:00 [INF] AuthenticationScheme: idsrv signed in.
+2018-09-19 08:56:54.761 +01:00 [INF] AuthenticationScheme: idsrv.external signed out.
+2018-09-19 08:56:54.764 +01:00 [INF] AuthenticationScheme: idsrv was successfully authenticated.
+2018-09-19 08:56:54.765 +01:00 [INF] AuthenticationScheme: idsrv was successfully authenticated.

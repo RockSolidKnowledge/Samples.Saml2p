@@ -1,11 +1,17 @@
+using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using IdentityServer4;
 using IdentityServer4.Quickstart.UI;
+using IdentityServer4.Saml.EntityFramework.DbContexts;
+using IdentityServer4.Saml.EntityFramework.Interfaces;
+using IdentityServer4.Saml.EntityFramework.Mappers;
+using IdentityServer4.Saml.EntityFramework.Stores;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace idp
+namespace idpWithEf
 {
     public class Startup
     {
@@ -18,6 +24,11 @@ namespace idp
                 options.AutomaticAuthentication = false;
                 options.AuthenticationDisplayName = "Windows";
             });
+
+            // SAML SP database (DbContext)
+            services.AddDbContext<SamlConfigurationDbContext>(db => 
+                db.UseInMemoryDatabase("ServiceProviders"));
+            services.AddScoped<ISamlConfigurationDbContext, SamlConfigurationDbContext>();
 
             var builder = services.AddIdentityServer(options =>
                 {
@@ -34,7 +45,9 @@ namespace idp
                     options.LicenseKey = "";
                     options.WantAuthenticationRequestsSigned = false;
                 })
-                .AddInMemoryServiceProviders(Config.GetServiceProviders());
+                // Tell IdentityServer about new SAML SP database
+                .AddServiceProviderStore<ServiceProviderStore>();
+                //.AddInMemoryServiceProviders(Config.GetServiceProviders());
 
             // in-memory, code config
             builder.AddInMemoryIdentityResources(Config.GetIdentityResources());
@@ -63,11 +76,30 @@ namespace idp
         {
             app.UseDeveloperExceptionPage();
 
+            SeedServiceProviderDatabase(app);
+
             app.UseIdentityServer()
                .UseIdentityServerSamlPlugin();
 
             app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
+        }
+
+        private void SeedServiceProviderDatabase(IApplicationBuilder app)
+        {
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetService<SamlConfigurationDbContext>();
+                if (!context.ServiceProviders.Any())
+                {
+                    foreach (var serviceProvider in Config.GetServiceProviders())
+                    {
+                        context.ServiceProviders.Add(serviceProvider.ToEntity());
+                    }
+
+                    context.SaveChanges();
+                }
+            }
         }
     }
 }
