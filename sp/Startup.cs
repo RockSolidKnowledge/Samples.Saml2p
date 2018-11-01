@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Security.Cryptography.X509Certificates;
 using IdentityServer4;
 using IdentityServer4.Quickstart.UI;
@@ -74,9 +74,9 @@ namespace sp
                     options.IdentityProviderOptions = new IdpOptions
                     {
                         EntityId = "http://localhost:5000",
-                        BindingType = SamlBindingTypes.HttpRedirect,
-                        SsoEndpoint = "http://localhost:5000/saml/sso",
-                        SigningCertificate = new X509Certificate2("idsrv3test.cer")
+                        SigningCertificate = new X509Certificate2("idsrv3test.cer"),
+                        SingleSignOnEndpoint = new SamlEndpoint("http://localhost:5000/saml/sso", SamlBindingTypes.HttpRedirect),
+                        SingleLogoutEndpoint = new SamlEndpoint("http://localhost:5000/saml/slo", SamlBindingTypes.HttpRedirect),
                     };
 
                     options.ServiceProviderOptions = new SpOptions
@@ -87,6 +87,7 @@ namespace sp
                         SigningCertificate = new X509Certificate2("testclient.pfx", "test")
                     };
 
+                    options.NameIdClaimType = "sub";
                     options.CallbackPath = "/signin-saml";
                     options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
                 });
