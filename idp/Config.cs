@@ -90,6 +90,13 @@ namespace idp
                     ClientName = "RSK SAML2P Test Client",
                     ProtocolType = IdentityServerConstants.ProtocolTypes.Saml2p,
                     AllowedScopes = {"openid", "profile"}
+                },
+                new Client
+                {
+                    ClientId = "http://localhost:5002/saml",
+                    ClientName = "RSK SAML2P Test Client - Multiple SP",
+                    ProtocolType = IdentityServerConstants.ProtocolTypes.Saml2p,
+                    AllowedScopes = {"openid", "profile"}
                 }
             };
         }
@@ -103,6 +110,12 @@ namespace idp
                     AssertionConsumerServices =
                         {new Service(SamlConstants.BindingTypes.HttpPost, "http://localhost:5001/signin-saml")},
                     SigningCertificates = {new X509Certificate2("testclient.cer")}
+                },
+                new ServiceProvider
+                {
+                    EntityId = "http://localhost:5002/saml",
+                    AssertionConsumerServices =
+                        {new Service(SamlConstants.BindingTypes.HttpPost, "http://localhost:5002/signin-saml1")}
                 }
             };
         }
