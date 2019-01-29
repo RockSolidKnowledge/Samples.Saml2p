@@ -115,7 +115,7 @@ namespace idp
                 {
                     EntityId = "http://localhost:5002/saml",
                     AssertionConsumerServices =
-                        {new Service(SamlConstants.BindingTypes.HttpPost, "http://localhost:5002/signin-saml1")}
+                        {new Service(SamlConstants.BindingTypes.HttpPost, "http://localhost:5002/signin-saml-1")}
                 }
             };
         }

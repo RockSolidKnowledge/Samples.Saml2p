@@ -1,4 +1,4 @@
-﻿using System.Security.Cryptography.X509Certificates;
+using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Rsk.AspNetCore.Authentication.Saml2p;
@@ -33,7 +33,7 @@ namespace spWithMultipleIdps
                     };
 
                     options.NameIdClaimType = "sub";
-                    options.CallbackPath = "/signin-saml1";
+                    options.CallbackPath = "/signin-saml-1";
                     options.SignInScheme = "cookie";
                 })
                 .AddSaml2p("idp2", options => {
@@ -56,7 +56,7 @@ namespace spWithMultipleIdps
                     };
 
                     options.NameIdClaimType = "sub";
-                    options.CallbackPath = "/signin-saml2";
+                    options.CallbackPath = "/signin-saml-2";
                     options.SignInScheme = "cookie";
                 });
         }
