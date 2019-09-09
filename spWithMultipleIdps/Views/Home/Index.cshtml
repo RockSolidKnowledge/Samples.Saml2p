@@ -1,6 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Authentication
 @{
-    var result = await Context.AuthenticateAsync("cookie");
+    var result = await Context.AuthenticateAsync();
 }
 <div class="row">
     <div class="col-xs-12">
@@ -20,7 +20,7 @@
         }
     </div>
     <div class="col-xs-12">
-        <a asp-action="ChallengeScheme" asp-route-scheme="idp1" class="btn btn-default">Login with IdP1</a>
-        <a asp-action="ChallengeScheme" asp-route-scheme="idp2" class="btn btn-default">Login with IdP2</a>
+        <a asp-action="ChallengeScheme" asp-route-scheme="pkcs1" class="btn btn-success" style="font-weight: bold;">Login with Default PKCS1</a>
+        <a asp-action="ChallengeScheme" asp-route-scheme="oaep" class="btn btn-danger" style="font-weight: bold;">Login with enforced OAEP</a>
     </div>
 </div>

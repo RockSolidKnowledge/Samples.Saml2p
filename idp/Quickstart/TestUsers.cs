@@ -37,6 +37,31 @@ namespace IdentityServer4.Quickstart.UI
                     new Claim(JwtClaimTypes.Address, @"{ 'street_address': 'One Hacker Way', 'locality': 'Heidelberg', 'postal_code': 69118, 'country': 'Germany' }", IdentityServer4.IdentityServerConstants.ClaimValueTypes.Json),
                     new Claim("location", "somewhere")
                 }
+            },
+            new TestUser{SubjectId = "718727", Username = "alice2", Password = "alice2",
+                Claims =
+                {
+                    new Claim(JwtClaimTypes.Name, "Not Same Alice Smith"),
+                    new Claim(JwtClaimTypes.GivenName, "Alice"),
+                    new Claim(JwtClaimTypes.FamilyName, "Smith"),
+                    new Claim(JwtClaimTypes.Email, "AliceSmith@email.com"),
+                    new Claim(JwtClaimTypes.EmailVerified, "true", ClaimValueTypes.Boolean),
+                    new Claim(JwtClaimTypes.WebSite, "http://alice.com"),
+                    new Claim(JwtClaimTypes.Address, @"{ 'street_address': 'One Hacker Way', 'locality': 'Heidelberg', 'postal_code': 69118, 'country': 'Germany' }", IdentityServer4.IdentityServerConstants.ClaimValueTypes.Json)
+                }
+            },
+            new TestUser{SubjectId = "77421113", Username = "bob2", Password = "bob2",
+                Claims =
+                {
+                    new Claim(JwtClaimTypes.Name, "Not Same Bob Smith"),
+                    new Claim(JwtClaimTypes.GivenName, "Bob"),
+                    new Claim(JwtClaimTypes.FamilyName, "Smith"),
+                    new Claim(JwtClaimTypes.Email, "BobSmith@email.com"),
+                    new Claim(JwtClaimTypes.EmailVerified, "true", ClaimValueTypes.Boolean),
+                    new Claim(JwtClaimTypes.WebSite, "http://bob.com"),
+                    new Claim(JwtClaimTypes.Address, @"{ 'street_address': 'One Hacker Way', 'locality': 'Heidelberg', 'postal_code': 69118, 'country': 'Germany' }", IdentityServer4.IdentityServerConstants.ClaimValueTypes.Json),
+                    new Claim("location", "somewhere")
+                }
             }
         };
     }

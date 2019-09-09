@@ -1,6 +1,7 @@
 using System.Security.Cryptography.X509Certificates;
 using IdentityServer4;
 using IdentityServer4.Quickstart.UI;
+using IdentityServer4.Saml.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,9 +31,9 @@ namespace idp
                 .AddSigningCredential(new X509Certificate2("idsrv3test.pfx", "idsrv3test"))
                 .AddSamlPlugin(options =>
                 {
-                    options.Licensee = "";
-                    options.LicenseKey = "";
-                    options.WantAuthenticationRequestsSigned = false;
+                    options.Licensee = "ENTER_VALIDLICENSEE";
+                    options.LicenseKey = "ENTER_VALIDLICENSEE";
+                    options.WantAuthenticationRequestsSigned = true;
                 })
                 .AddInMemoryServiceProviders(Config.GetServiceProviders());
 
@@ -44,6 +45,8 @@ namespace idp
             // use different cookie name that sp...
             builder.Services.Configure<CookieAuthenticationOptions>(IdentityServerConstants.DefaultCookieAuthenticationScheme,
                 cookie => { cookie.Cookie.Name = "idsrv.idp"; });
+
+            builder.Services.AddTransient<ISamlEncryptionService, MySamlEncryptionService>();
         }
 
         public void Configure(IApplicationBuilder app)
