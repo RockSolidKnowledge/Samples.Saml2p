@@ -12,6 +12,7 @@ namespace idp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddControllersWithViews();
 
             services.Configure<IISOptions>(options =>
             {
@@ -50,11 +51,16 @@ namespace idp
         {
             app.UseDeveloperExceptionPage();
 
+            app.UseStaticFiles();
+
+            app.UseRouting();
+
             app.UseIdentityServer()
                .UseIdentityServerSamlPlugin();
 
-            app.UseStaticFiles();
-            app.UseMvcWithDefaultRoute();
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints => endpoints.MapDefaultControllerRoute());
         }
     }
 }

@@ -65,10 +65,14 @@ namespace spWithMultipleIdps
         {
             app.UseDeveloperExceptionPage();
 
-            app.UseAuthentication();
-
             app.UseStaticFiles();
-            app.UseMvcWithDefaultRoute();
+
+            app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints => endpoints.MapDefaultControllerRoute());
         }
     }
 }

@@ -2,27 +2,17 @@ using System.Security.Cryptography.X509Certificates;
 using IdentityServer4;
 using IdentityServer4.Quickstart.UI;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Configuration;
 using Rsk.AspNetCore.Authentication.Saml2p;
 
 namespace sp
 {
     public class Startup
     {
-        public IHostingEnvironment Environment { get; }
-        public IConfiguration Configuration { get; }
-
-        public Startup(IHostingEnvironment environment, IConfiguration configuration)
-        {
-            Environment = environment;
-            Configuration = configuration;
-        }
-
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddControllersWithViews();
 
             services.Configure<IISOptions>(options =>
             {
@@ -82,11 +72,16 @@ namespace sp
         {
             app.UseDeveloperExceptionPage();
 
+            app.UseStaticFiles();
+
+            app.UseRouting();
+
             app.UseIdentityServer()
                .UseIdentityServerSamlPlugin();
 
-            app.UseStaticFiles();
-            app.UseMvcWithDefaultRoute();
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints => endpoints.MapDefaultControllerRoute());
         }
     }
 }

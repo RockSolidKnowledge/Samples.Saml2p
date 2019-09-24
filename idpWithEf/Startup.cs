@@ -18,6 +18,7 @@ namespace idpWithEf
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddControllersWithViews();
 
             services.Configure<IISOptions>(options =>
             {
@@ -61,15 +62,6 @@ namespace idpWithEf
 
             builder.Services.Configure<CookieAuthenticationOptions>(IdentityServerConstants.DefaultCookieAuthenticationScheme,
                 cookie => { cookie.Cookie.Name = "idsrv.idp"; });
-
-            services.AddAuthentication()
-                .AddGoogle(options =>
-                {
-                    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
-
-                    options.ClientId = "708996912208-9m4dkjb5hscn7cjrn5u0r4tbgkbj1fko.apps.googleusercontent.com";
-                    options.ClientSecret = "wdfPY6t8H8cecgjlxud__4Gh";
-                });
         }
 
         public void Configure(IApplicationBuilder app)
@@ -78,11 +70,16 @@ namespace idpWithEf
 
             SeedServiceProviderDatabase(app);
 
+            app.UseStaticFiles();
+
+            app.UseRouting();
+
             app.UseIdentityServer()
                .UseIdentityServerSamlPlugin();
 
-            app.UseStaticFiles();
-            app.UseMvcWithDefaultRoute();
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints => endpoints.MapDefaultControllerRoute());
         }
 
         private void SeedServiceProviderDatabase(IApplicationBuilder app)
