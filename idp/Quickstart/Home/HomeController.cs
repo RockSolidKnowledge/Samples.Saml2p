@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Hosting;
 
 namespace IdentityServer4.Quickstart.UI
 {
@@ -15,9 +16,9 @@ namespace IdentityServer4.Quickstart.UI
     public class HomeController : Controller
     {
         private readonly IIdentityServerInteractionService _interaction;
-        private readonly IHostingEnvironment _environment;
+        private readonly IWebHostEnvironment _environment;
 
-        public HomeController(IIdentityServerInteractionService interaction, IHostingEnvironment environment)
+        public HomeController(IIdentityServerInteractionService interaction, IWebHostEnvironment environment)
         {
             _interaction = interaction;
             _environment = environment;
