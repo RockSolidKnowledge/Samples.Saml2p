@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using IdentityServer4;
 using IdentityServer4.Quickstart.UI;
@@ -49,7 +50,7 @@ namespace sp
                     options.IdentityProviderOptions = new IdpOptions
                     {
                         EntityId = "http://localhost:5000",
-                        SigningCertificate = new X509Certificate2("idsrv3test.cer"),
+                        SigningCertificates = new List<X509Certificate2> {new X509Certificate2("idsrv3test.cer")},
                         SingleSignOnEndpoint = new SamlEndpoint("http://localhost:5000/saml/sso", SamlBindingTypes.HttpRedirect),
                         SingleLogoutEndpoint = new SamlEndpoint("http://localhost:5000/saml/slo", SamlBindingTypes.HttpRedirect),
                     };
@@ -69,7 +70,6 @@ namespace sp
                     // IdP-Initiated SSO
                     options.AllowIdpInitiatedSso = true;
                     options.IdPInitiatedSsoCompletionPath = "/External/IdpInitiatedCallback";
-
                 });
         }
 
