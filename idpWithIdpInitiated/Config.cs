@@ -109,7 +109,8 @@ namespace idpWithIdpInitiated
                     EntityId = "http://localhost:5001/saml",
                     AssertionConsumerServices =
                         {new Service(SamlConstants.BindingTypes.HttpPost, "http://localhost:5001/signin-saml")},
-                    SigningCertificates = {new X509Certificate2("testclient.cer")}
+                    SigningCertificates = {new X509Certificate2("testclient.cer")},
+                    AllowIdpInitiatedSso = true
                 }
             };
         }

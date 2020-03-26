@@ -1,61 +1,74 @@
-// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
-// Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
-
-
+using System;
+using System.Collections.Generic;
 using IdentityServer4.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Hosting;
+using IdentityServer4.Saml.Models;
+using IdentityServer4.Saml.Services.Interfaces;
 
 namespace IdentityServer4.Quickstart.UI
 {
     [SecurityHeaders]
-    [AllowAnonymous]
+    [Authorize]
     public class HomeController : Controller
     {
-        private readonly IIdentityServerInteractionService _interaction;
-        private readonly IWebHostEnvironment _environment;
+        private readonly IIdentityServerInteractionService interactionService;
+        private readonly ISamlInteractionService samlInteractionService;
 
-        public HomeController(IIdentityServerInteractionService interaction, IWebHostEnvironment environment)
+        public HomeController(
+            IIdentityServerInteractionService interactionService,
+            ISamlInteractionService samlInteractionService)
         {
-            _interaction = interaction;
-            _environment = environment;
+            this.interactionService = interactionService ?? throw new ArgumentNullException(nameof(interactionService));
+            this.samlInteractionService = samlInteractionService ?? throw new ArgumentNullException(nameof(samlInteractionService));
         }
 
-        public IActionResult Index()
+        [HttpGet]
+        public async Task<IActionResult> Index()
         {
-            if (_environment.IsDevelopment())
-            {
-                // only show in development
-                return View();
-            }
+            var serviceProviders = await samlInteractionService.GetIdpInitiatedSsoCompatibleServiceProviders();
+            var model = new IdpInitiatedSsoViewModel(serviceProviders);
 
-            return NotFound();
+
+            return View(model);
         }
 
-        /// <summary>
-        /// Shows the error page
-        /// </summary>
+        [HttpPost]
+        public async Task Index(IdpInitiatedSsoInputModel model)
+        {
+            var ssoResponse = await samlInteractionService.CreateIdpInitiatedSsoResponse(model.ServiceProviderId);
+
+            await samlInteractionService.ExecuteIdpInitiatedSso(HttpContext, ssoResponse);
+        }
+
         public async Task<IActionResult> Error(string errorId)
         {
             var vm = new ErrorViewModel();
 
-            // retrieve error details from identityserver
-            var message = await _interaction.GetErrorContextAsync(errorId);
+            var message = await interactionService.GetErrorContextAsync(errorId);
             if (message != null)
             {
                 vm.Error = message;
-
-                if (!_environment.IsDevelopment())
-                {
-                    // only show in development
-                    message.ErrorDescription = null;
-                }
+                message.ErrorDescription = null;
             }
 
             return View("Error", vm);
         }
+    }
+
+    public class IdpInitiatedSsoViewModel : IdpInitiatedSsoInputModel
+    {
+        public IEnumerable<ServiceProvider> IdpInitiatedSsoEnabledProviders { get; }
+
+        public IdpInitiatedSsoViewModel(IEnumerable<ServiceProvider> serviceProviders)
+        {
+            IdpInitiatedSsoEnabledProviders = serviceProviders;
+        }
+    }
+
+    public class IdpInitiatedSsoInputModel
+    {
+        public string ServiceProviderId { get; set; }
     }
 }

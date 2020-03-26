@@ -1,48 +1,19 @@
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
-using IdentityServer4;
-using IdentityServer4.Quickstart.UI;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Rsk.AspNetCore.Authentication.Saml2p;
 
-namespace sp
+namespace spWithIdpInitiated
 {
     public class Startup
     {
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddControllersWithViews();
-
-            services.Configure<IISOptions>(options =>
-            {
-                options.AutomaticAuthentication = false;
-                options.AuthenticationDisplayName = "Windows";
-            });
-
-            var builder = services.AddIdentityServer(options =>
-            {
-                options.Events.RaiseErrorEvents = true;
-                options.Events.RaiseInformationEvents = true;
-                options.Events.RaiseFailureEvents = true;
-                options.Events.RaiseSuccessEvents = true;
-            })
-                .AddTestUsers(TestUsers.Users)
-                .AddSigningCredential(new X509Certificate2("testclient.pfx", "test"));
-
-            builder.AddInMemoryIdentityResources(Config.GetIdentityResources());
-            builder.AddInMemoryApiResources(Config.GetApis());
-            builder.AddInMemoryClients(Config.GetClients())
-                .AddSamlPlugin(options =>
-                {
-                    options.Licensee = "";
-                    options.LicenseKey = "";
-                    options.WantAuthenticationRequestsSigned = false;
-                })
-                .AddInMemoryServiceProviders(Config.GetServiceProviders());
 
             services.AddAuthentication()
+                .AddCookie("cookie")
                 .AddSaml2p("saml2p", options => {
                     options.Licensee = "";
                     options.LicenseKey = "";
@@ -50,7 +21,7 @@ namespace sp
                     options.IdentityProviderOptions = new IdpOptions
                     {
                         EntityId = "http://localhost:5000",
-                        SigningCertificates = new List<X509Certificate2> {new X509Certificate2("idsrv3test.cer")},
+                        SigningCertificates = new List<X509Certificate2> { new X509Certificate2("idsrv3test.cer") },
                         SingleSignOnEndpoint = new SamlEndpoint("http://localhost:5000/saml/sso", SamlBindingTypes.HttpRedirect),
                         SingleLogoutEndpoint = new SamlEndpoint("http://localhost:5000/saml/slo", SamlBindingTypes.HttpRedirect),
                     };
@@ -59,17 +30,16 @@ namespace sp
                     {
                         EntityId = "http://localhost:5001/saml",
                         MetadataPath = "/saml/metadata",
-                        SignAuthenticationRequests = true,
-                        SigningCertificate = new X509Certificate2("testclient.pfx", "test")
+                        SignAuthenticationRequests = false
                     };
 
                     options.NameIdClaimType = "sub";
                     options.CallbackPath = "/signin-saml";
-                    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+                    options.SignInScheme = "cookie";
 
                     // IdP-Initiated SSO
                     options.AllowIdpInitiatedSso = true;
-                    options.IdPInitiatedSsoCompletionPath = "/External/IdpInitiatedCallback";
+                    options.IdPInitiatedSsoCompletionPath = "/";
                 });
         }
 
@@ -81,9 +51,7 @@ namespace sp
 
             app.UseRouting();
 
-            app.UseIdentityServer()
-               .UseIdentityServerSamlPlugin();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => endpoints.MapDefaultControllerRoute());
