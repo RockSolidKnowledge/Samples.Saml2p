@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading.Tasks;
 using IdentityModel;
+using IdentityServer4;
 using IdentityServer4.Events;
 using IdentityServer4.Quickstart.UI;
 using IdentityServer4.Services;
@@ -112,7 +113,12 @@ namespace Host.Quickstart.Account
 
             // issue authentication cookie for user
             await _events.RaiseAsync(new UserLoginSuccessEvent(provider, providerUserId, user.SubjectId, user.Username));
-            await HttpContext.SignInAsync(user.SubjectId, user.Username, provider, localSignInProps, additionalLocalClaims.ToArray());
+            await HttpContext.SignInAsync(new IdentityServerUser(user.SubjectId)
+            {
+                DisplayName = user.Username,
+                IdentityProvider = provider,
+                AdditionalClaims = additionalLocalClaims.ToArray()
+            }, localSignInProps);
 
             // delete temporary cookie used during external authentication
             await HttpContext.SignOutAsync(IdentityServer4.IdentityServerConstants.ExternalCookieAuthenticationScheme);
@@ -124,7 +130,7 @@ namespace Host.Quickstart.Account
             var context = await _interaction.GetAuthorizationContextAsync(returnUrl);
             if (context != null)
             {
-                if (await _clientStore.IsPkceClientAsync(context.ClientId))
+                if (await _clientStore.IsPkceClientAsync(context.Client.ClientId))
                 {
                     // if the client is PKCE then we assume it's native, so this change in how to
                     // return the response is for better UX for the end user.
