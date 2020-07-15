@@ -5,8 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="IdentityServer4" Version="3.1.2" />
-    <PackageReference Include="Rsk.IdentityServer4.Saml" Version="3.0.1-preview2" />
+    <PackageReference Include="IdentityServer4" Version="3.1.4" />
+    <PackageReference Include="Rsk.IdentityServer4.Saml" Version="3.0.1-preview6" />
+    <PackageReference Include="Rsk.IdentityServer4.Saml.EntityFramework" Version="3.0.1-preview5" />
 
     <PackageReference Include="Serilog" Version="2.9.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="3.2.0" />
