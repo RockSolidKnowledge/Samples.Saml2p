@@ -1,5 +1,5 @@
 blank_issues_enabled: false
 contact_links:
   - name: Need help with SAML?
-    url: mailto:support@identityserver.com
+    url: https://www.identityserver.com/documentation/saml2p/
     about: please email the support desk at support@identityserver.com
