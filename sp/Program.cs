@@ -36,7 +36,7 @@ namespace sp
                             .WriteTo.File(@"identityserver4_log.txt")
                             .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}", theme: AnsiConsoleTheme.Literate);
                     })
-                    .UseUrls("http://*:5001")
+                    .UseUrls("https://*:5001")
                     .Build();
         }
     }
