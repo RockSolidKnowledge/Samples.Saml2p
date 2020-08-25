@@ -66,6 +66,8 @@ namespace idpWithEf
 
         public void Configure(IApplicationBuilder app)
         {
+            app.UseHttpsRedirection();
+
             app.UseDeveloperExceptionPage();
 
             SeedServiceProviderDatabase(app);

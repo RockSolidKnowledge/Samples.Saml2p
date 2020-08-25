@@ -19,15 +19,15 @@ namespace spWithMultipleIdps
 
                     options.IdentityProviderOptions = new IdpOptions
                     {
-                        EntityId = "http://localhost:5000",
+                        EntityId = "https://localhost:5000",
                         SigningCertificate = new X509Certificate2("idsrv3test.cer"),
-                        SingleSignOnEndpoint = new SamlEndpoint("http://localhost:5000/saml/sso", SamlBindingTypes.HttpRedirect),
-                        SingleLogoutEndpoint = new SamlEndpoint("http://localhost:5000/saml/slo", SamlBindingTypes.HttpRedirect),
+                        SingleSignOnEndpoint = new SamlEndpoint("https://localhost:5000/saml/sso", SamlBindingTypes.HttpRedirect),
+                        SingleLogoutEndpoint = new SamlEndpoint("https://localhost:5000/saml/slo", SamlBindingTypes.HttpRedirect),
                     };
 
                     options.ServiceProviderOptions = new SpOptions
                     {
-                        EntityId = "http://localhost:5002/saml",
+                        EntityId = "https://localhost:5002/saml",
                         MetadataPath = "/saml/metadata",
                         SignAuthenticationRequests = false
                     };
@@ -42,15 +42,15 @@ namespace spWithMultipleIdps
 
                     options.IdentityProviderOptions = new IdpOptions
                     {
-                        EntityId = "http://localhost:5001",
+                        EntityId = "https://localhost:5001",
                         SigningCertificate = new X509Certificate2("testclient.cer"),
-                        SingleSignOnEndpoint = new SamlEndpoint("http://localhost:5001/saml/sso", SamlBindingTypes.HttpRedirect),
-                        SingleLogoutEndpoint = new SamlEndpoint("http://localhost:5001/saml/slo", SamlBindingTypes.HttpRedirect),
+                        SingleSignOnEndpoint = new SamlEndpoint("https://localhost:5001/saml/sso", SamlBindingTypes.HttpRedirect),
+                        SingleLogoutEndpoint = new SamlEndpoint("https://localhost:5001/saml/slo", SamlBindingTypes.HttpRedirect),
                     };
 
                     options.ServiceProviderOptions = new SpOptions
                     {
-                        EntityId = "http://localhost:5002/saml",
+                        EntityId = "https://localhost:5002/saml",
                         MetadataPath = "/saml/metadata",
                         SignAuthenticationRequests = false
                     };
@@ -63,6 +63,8 @@ namespace spWithMultipleIdps
 
         public void Configure(IApplicationBuilder app)
         {
+            app.UseHttpsRedirection();
+
             app.UseDeveloperExceptionPage();
 
             app.UseStaticFiles();

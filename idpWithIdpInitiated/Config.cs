@@ -51,9 +51,9 @@ namespace idpWithIdpInitiated
                     AllowedGrantTypes = GrantTypes.HybridAndClientCredentials,
                     ClientSecrets = {new Secret("49C1A7E1-0C79-4A89-A3D6-A37998FB86B0".Sha256())},
 
-                    RedirectUris = {"http://localhost:5001/signin-oidc"},
-                    FrontChannelLogoutUri = "http://localhost:5001/signout-oidc",
-                    PostLogoutRedirectUris = {"http://localhost:5001/signout-callback-oidc"},
+                    RedirectUris = {"https://localhost:5001/signin-oidc"},
+                    FrontChannelLogoutUri = "https://localhost:5001/signout-oidc",
+                    PostLogoutRedirectUris = {"https://localhost:5001/signout-callback-oidc"},
 
                     AllowOfflineAccess = true,
                     AllowedScopes = {"openid", "profile", "api1"}
@@ -64,21 +64,21 @@ namespace idpWithIdpInitiated
                 {
                     ClientId = "spa",
                     ClientName = "SPA Client",
-                    ClientUri = "http://identityserver.io",
+                    ClientUri = "https://identityserver.io",
 
                     AllowedGrantTypes = GrantTypes.Implicit,
                     AllowAccessTokensViaBrowser = true,
 
                     RedirectUris =
                     {
-                        "http://localhost:5002/index.html",
-                        "http://localhost:5002/callback.html",
-                        "http://localhost:5002/silent.html",
-                        "http://localhost:5002/popup.html",
+                        "https://localhost:5002/index.html",
+                        "https://localhost:5002/callback.html",
+                        "https://localhost:5002/silent.html",
+                        "https://localhost:5002/popup.html",
                     },
 
-                    PostLogoutRedirectUris = {"http://localhost:5002/index.html"},
-                    AllowedCorsOrigins = {"http://localhost:5002"},
+                    PostLogoutRedirectUris = {"https://localhost:5002/index.html"},
+                    AllowedCorsOrigins = {"https://localhost:5002"},
 
                     AllowedScopes = {"openid", "profile", "api1"}
                 },
@@ -86,14 +86,14 @@ namespace idpWithIdpInitiated
                 // SAML client
                 new Client
                 {
-                    ClientId = "http://localhost:5001/saml",
+                    ClientId = "https://localhost:5001/saml",
                     ClientName = "RSK SAML2P Test Client",
                     ProtocolType = IdentityServerConstants.ProtocolTypes.Saml2p,
                     AllowedScopes = {"openid", "profile"}
                 },
                 new Client
                 {
-                    ClientId = "http://localhost:5002/saml",
+                    ClientId = "https://localhost:5002/saml",
                     ClientName = "RSK SAML2P Test Client - Multiple SP",
                     ProtocolType = IdentityServerConstants.ProtocolTypes.Saml2p,
                     AllowedScopes = {"openid", "profile"}
@@ -106,9 +106,9 @@ namespace idpWithIdpInitiated
             {
                 new ServiceProvider
                 {
-                    EntityId = "http://localhost:5001/saml",
+                    EntityId = "https://localhost:5001/saml",
                     AssertionConsumerServices =
-                        {new Service(SamlConstants.BindingTypes.HttpPost, "http://localhost:5001/signin-saml")},
+                        {new Service(SamlConstants.BindingTypes.HttpPost, "https://localhost:5001/signin-saml")},
                     SigningCertificates = {new X509Certificate2("testclient.cer")},
                     AllowIdpInitiatedSso = true
                 }
