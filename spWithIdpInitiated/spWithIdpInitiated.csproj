@@ -5,8 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Rsk.Saml" Version="3.0.1" />
-    <PackageReference Include="Rsk.IdentityServer4.Saml.EntityFramework" Version="3.0.1" />
+    <PackageReference Include="Rsk.Saml" Version="3.1.1" />
   </ItemGroup>
 
   <ItemGroup>

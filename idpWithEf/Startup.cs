@@ -17,14 +17,7 @@ namespace idpWithEf
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
             services.AddControllersWithViews();
-
-            services.Configure<IISOptions>(options =>
-            {
-                options.AutomaticAuthentication = false;
-                options.AuthenticationDisplayName = "Windows";
-            });
 
             // SAML SP database (DbContext)
             services.AddDbContext<SamlConfigurationDbContext>(db => 
@@ -39,27 +32,20 @@ namespace idpWithEf
                     options.Events.RaiseSuccessEvents = true;
                 })
                 .AddTestUsers(TestUsers.Users)
-                .AddSigningCredential(new X509Certificate2("idsrv3test.pfx", "idsrv3test"))
-                .AddSamlPlugin(options =>
+                .AddInMemoryIdentityResources(Config.GetIdentityResources())
+                .AddInMemoryApiResources(Config.GetApis())
+                .AddInMemoryClients(Config.GetClients())
+                .AddSigningCredential(new X509Certificate2("idsrv3test.pfx", "idsrv3test"));
+
+            // Configure SAML Identity Provider and authorized Service Providers
+            builder.AddSamlPlugin(options =>
                 {
                     options.Licensee = "";
                     options.LicenseKey = "";
                     options.WantAuthenticationRequestsSigned = false;
                 })
-                // Tell IdentityServer about new SAML SP database
-                .AddServiceProviderStore<ServiceProviderStore>();
-                //.AddInMemoryServiceProviders(Config.GetServiceProviders());
-
-            // in-memory, code config
-            builder.AddInMemoryIdentityResources(Config.GetIdentityResources());
-            builder.AddInMemoryApiResources(Config.GetApis());
-            builder.AddInMemoryClients(Config.GetClients());
-
-            // in-memory, json config
-            //builder.AddInMemoryIdentityResources(Configuration.GetSection("IdentityResources"));
-            //builder.AddInMemoryApiResources(Configuration.GetSection("ApiResources"));
-            //builder.AddInMemoryClients(Configuration.GetSection("clients"));
-
+                .AddServiceProviderStore<ServiceProviderStore>(); // Load authorized Service Providers from database
+            
             builder.Services.Configure<CookieAuthenticationOptions>(IdentityServerConstants.DefaultCookieAuthenticationScheme,
                 cookie => { cookie.Cookie.Name = "idsrv.idp"; });
         }
@@ -73,11 +59,10 @@ namespace idpWithEf
             SeedServiceProviderDatabase(app);
 
             app.UseStaticFiles();
-
             app.UseRouting();
 
             app.UseIdentityServer()
-               .UseIdentityServerSamlPlugin();
+               .UseIdentityServerSamlPlugin(); // enables SAML endpoints (e.g. ACS and SLO)
 
             app.UseAuthorization();
 
