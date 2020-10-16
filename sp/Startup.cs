@@ -11,29 +11,23 @@ namespace sp
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
             services.AddControllersWithViews();
 
-            services.Configure<IISOptions>(options =>
-            {
-                options.AutomaticAuthentication = false;
-                options.AuthenticationDisplayName = "Windows";
-            });
-
             var builder = services.AddIdentityServer(options =>
-            {
-                options.Events.RaiseErrorEvents = true;
-                options.Events.RaiseInformationEvents = true;
-                options.Events.RaiseFailureEvents = true;
-                options.Events.RaiseSuccessEvents = true;
-            })
+                {
+                    options.Events.RaiseErrorEvents = true;
+                    options.Events.RaiseInformationEvents = true;
+                    options.Events.RaiseFailureEvents = true;
+                    options.Events.RaiseSuccessEvents = true;
+                })
                 .AddTestUsers(TestUsers.Users)
+                .AddInMemoryIdentityResources(Config.GetIdentityResources())
+                .AddInMemoryApiResources(Config.GetApis())
+                .AddInMemoryClients(Config.GetClients())
                 .AddSigningCredential(new X509Certificate2("testclient.pfx", "test"));
 
-            builder.AddInMemoryIdentityResources(Config.GetIdentityResources());
-            builder.AddInMemoryApiResources(Config.GetApis());
-            builder.AddInMemoryClients(Config.GetClients())
-                .AddSamlPlugin(options =>
+            // OPTIONAL - only required if you want to be a SAML IdP too
+            builder.AddSamlPlugin(options =>
                 {
                     options.Licensee = "";
                     options.LicenseKey = "";
@@ -41,24 +35,27 @@ namespace sp
                 })
                 .AddInMemoryServiceProviders(Config.GetServiceProviders());
 
+            // SP configuration
             services.AddAuthentication()
                 .AddSaml2p("saml2p", options => {
                     options.Licensee = "";
                     options.LicenseKey = "";
 
+                    // The IdP you want to integrate with
                     options.IdentityProviderOptions = new IdpOptions
                     {
                         EntityId = "http://localhost:5000",
-                        SigningCertificate = new X509Certificate2("idsrv3test.cer"),
+                        SigningCertificates = {new X509Certificate2("idsrv3test.cer")},
                         SingleSignOnEndpoint = new SamlEndpoint("http://localhost:5000/saml/sso", SamlBindingTypes.HttpRedirect),
                         SingleLogoutEndpoint = new SamlEndpoint("http://localhost:5000/saml/slo", SamlBindingTypes.HttpRedirect),
                     };
 
+                    // Details about yourself (the SP)
                     options.ServiceProviderOptions = new SpOptions
                     {
                         EntityId = "http://localhost:5001/saml",
                         MetadataPath = "/saml/metadata",
-                        SignAuthenticationRequests = true,
+                        SignAuthenticationRequests = true, // OPTIONAL - use if you want to sign your auth requests
                         SigningCertificate = new X509Certificate2("testclient.pfx", "test")
                     };
 
@@ -73,11 +70,10 @@ namespace sp
             app.UseDeveloperExceptionPage();
 
             app.UseStaticFiles();
-
             app.UseRouting();
 
             app.UseIdentityServer()
-               .UseIdentityServerSamlPlugin();
+                .UseIdentityServerSamlPlugin(); // OPTIONAL - only required if you want to be a SAML IdP too
 
             app.UseAuthorization();
 

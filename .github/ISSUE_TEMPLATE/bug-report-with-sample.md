@@ -1,5 +1,5 @@
 ---
-name: Bug report with Sample
+name: Bug report for a Sample
 about: Create a report to help us improve our sample apps
 title: ''
 labels: ''

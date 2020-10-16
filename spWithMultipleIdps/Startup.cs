@@ -9,7 +9,7 @@ namespace spWithMultipleIdps
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddControllersWithViews();
 
             services.AddAuthentication()
                 .AddCookie("cookie")
@@ -66,7 +66,6 @@ namespace spWithMultipleIdps
             app.UseDeveloperExceptionPage();
 
             app.UseStaticFiles();
-
             app.UseRouting();
 
             app.UseAuthentication();
