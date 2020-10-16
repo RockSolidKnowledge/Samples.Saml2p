@@ -14,6 +14,6 @@ The [master](https://github.com/RockSolidKnowledge/Samples.IdentityServer4.Saml2
 
 ## Getting Started
 
-- [YouTube Tutorials]()
+- [YouTube Tutorials](https://www.youtube.com/playlist?list=PLz9t0GSOz9eCGVZQnQBDg8KH_SRQmzfUm)
 - [Gettings Started article](https://www.identityserver.com/articles/saml-20-integration-with-identityserver4/)
 - [Documentation](https://www.identityserver.com/documentation/saml2p/)
