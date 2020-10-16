@@ -12,10 +12,8 @@ The [master](https://github.com/RockSolidKnowledge/Samples.IdentityServer4.Saml2
 - **spWithIdpInitiated:** an ASP.NET Core website that can accept unsolicited SAML assertions sent via IdP-Initiated SSO
 - **spWithMultipleIdps:** an ASP.NET Core website that can authenticate a user using two different SAML Identity Providers
 
-## How-to Article
+## Getting Started
 
-https://www.identityserver.com/articles/saml-20-integration-with-identityserver4/
-
-## Documentation
-
-https://www.identityserver.com/documentation/saml2p/
+- [YouTube Tutorials]()
+- [Gettings Started article](https://www.identityserver.com/articles/saml-20-integration-with-identityserver4/)
+- [Documentation](https://www.identityserver.com/documentation/saml2p/)
