@@ -5,12 +5,15 @@ The [master](https://github.com/RockSolidKnowledge/Samples.IdentityServer4.Saml2
 
 ## Projects
 
-- **idp:** an IdentityServer4 implementation configured to act as a SAML Identity Provider with Service Provider configuration loaded from memory
-- **idpWithEf:** an IdentityServer4 implementation configured to act as a SAML Identity Provider with Service Provider configuration loaded from a database
-- **idpWithIdpInitiated:** an IdentityServer4 implementation configured to send unsolicited SAML assertions using IdP-Initiated SSO
-- **sp:** an IdentityServer4 implementation configured to act as both a SAML Identity Provider and a SAML Service Provider
 - **spWithIdpInitiated:** an ASP.NET Core website that can accept unsolicited SAML assertions sent via IdP-Initiated SSO
 - **spWithMultipleIdps:** an ASP.NET Core website that can authenticate a user using two different SAML Identity Providers
+
+- **IdentityServer4**
+	- **idp:** an IdentityServer4 implementation configured to act as a SAML Identity Provider with Service Provider configuration loaded from memory
+	- **idpWithEf:** an IdentityServer4 implementation configured to act as a SAML Identity Provider with Service Provider configuration loaded from a database
+	- **idpWithIdpInitiated:** an IdentityServer4 implementation configured to send unsolicited SAML assertions using IdP-Initiated SSO
+	- **sp:** an IdentityServer4 implementation configured to act as both a SAML Identity Provider and a SAML Service Provider
+
 
 ## Getting Started
 
