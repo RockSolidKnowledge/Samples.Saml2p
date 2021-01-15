@@ -2,14 +2,15 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using IdentityServer4;
 using IdentityServer4.Quickstart.UI;
-using IdentityServer4.Saml.EntityFramework.DbContexts;
-using IdentityServer4.Saml.EntityFramework.Interfaces;
-using IdentityServer4.Saml.EntityFramework.Mappers;
-using IdentityServer4.Saml.EntityFramework.Stores;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Rsk.Saml.Configuration;
+using Rsk.Saml.IdentityProvider.Storage.EntityFramework.DbContexts;
+using Rsk.Saml.IdentityProvider.Storage.EntityFramework.Interfaces;
+using Rsk.Saml.IdentityProvider.Storage.EntityFramework.Mappers;
+using Rsk.Saml.IdentityProvider.Storage.EntityFramework.Stores;
 
 namespace idpWithEf
 {

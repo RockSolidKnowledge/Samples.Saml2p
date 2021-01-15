@@ -4,8 +4,8 @@ using IdentityServer4.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using IdentityServer4.Saml.Models;
-using IdentityServer4.Saml.Services.Interfaces;
+using Rsk.Saml.Models;
+using Rsk.Saml.Services;
 
 namespace IdentityServer4.Quickstart.UI
 {

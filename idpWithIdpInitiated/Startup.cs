@@ -4,6 +4,7 @@ using IdentityServer4.Quickstart.UI;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using Rsk.Saml.Configuration;
 
 namespace idpWithIdpInitiated
 {

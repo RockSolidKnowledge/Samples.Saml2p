@@ -4,6 +4,7 @@ using IdentityServer4.Quickstart.UI;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Rsk.AspNetCore.Authentication.Saml2p;
+using Rsk.Saml.Configuration;
 
 namespace sp
 {
