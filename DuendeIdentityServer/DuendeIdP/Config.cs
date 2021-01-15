@@ -8,7 +8,7 @@ using Duende.IdentityServer;
 using Rsk.Saml;
 using Rsk.Saml.Models;
 
-namespace duendetest
+namespace DuendeIdP
 {
     public static class Config
     {

@@ -12,7 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Rsk.Saml.Configuration;
 
-namespace duendetest
+namespace DuendeIdP
 {
     public class Startup
     {
