@@ -43,6 +43,7 @@ namespace idpWithEf
                 {
                     options.Licensee = "";
                     options.LicenseKey = "";
+
                     options.WantAuthenticationRequestsSigned = false;
                 })
                 .AddServiceProviderStore<ServiceProviderStore>(); // Load authorized Service Providers from database

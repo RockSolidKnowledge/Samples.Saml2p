@@ -55,6 +55,7 @@ namespace duendetest
                 {
                     options.Licensee = "";
                     options.LicenseKey = "";
+
                     options.WantAuthenticationRequestsSigned = false;
                 })
                 .AddInMemoryServiceProviders(Config.GetServiceProviders());

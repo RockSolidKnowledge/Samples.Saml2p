@@ -32,6 +32,7 @@ namespace sp
                 {
                     options.Licensee = "";
                     options.LicenseKey = "";
+
                     options.WantAuthenticationRequestsSigned = false;
                 })
                 .AddInMemoryServiceProviders(Config.GetServiceProviders());
@@ -41,6 +42,8 @@ namespace sp
                 .AddSaml2p("saml2p", options => {
                     options.Licensee = "";
                     options.LicenseKey = "";
+
+                    options.CorrelationCookie.Name = "Saml2pCorrelation2";
 
                     // The IdP you want to integrate with
                     options.IdentityProviderOptions = new IdpOptions

@@ -32,6 +32,7 @@ namespace idp
                 {
                     options.Licensee = "";
                     options.LicenseKey = "";
+
                     options.WantAuthenticationRequestsSigned = false;
                 })
                 .AddInMemoryServiceProviders(Config.GetServiceProviders());
