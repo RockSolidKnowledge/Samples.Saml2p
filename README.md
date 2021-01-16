@@ -13,6 +13,8 @@ The [master](https://github.com/RockSolidKnowledge/Samples.IdentityServer4.Saml2
 	- **idpWithEf:** an IdentityServer4 implementation configured to act as a SAML Identity Provider with Service Provider configuration loaded from a database
 	- **idpWithIdpInitiated:** an IdentityServer4 implementation configured to send unsolicited SAML assertions using IdP-Initiated SSO
 	- **sp:** an IdentityServer4 implementation configured to act as both a SAML Identity Provider and a SAML Service Provider
+- **DuendeIdentityServer**
+	- **DuendeIdP:** a Duende.IdentityServer implementation configured to act as a SAML Identity Provider with Service Provider configuration loaded from memory
 
 
 ## Getting Started
