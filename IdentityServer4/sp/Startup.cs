@@ -43,8 +43,6 @@ namespace sp
                     options.Licensee = "";
                     options.LicenseKey = "";
 
-                    options.CorrelationCookie.Name = "Saml2pCorrelation2";
-
                     // The IdP you want to integrate with
                     options.IdentityProviderOptions = new IdpOptions
                     {
