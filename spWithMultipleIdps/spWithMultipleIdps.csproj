@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Rsk.Saml" Version="4.0.0-preview6" />
+    <PackageReference Include="Rsk.Saml" Version="4.0.0" />
   </ItemGroup>
 
   <ItemGroup>

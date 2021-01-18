@@ -6,8 +6,8 @@
 
   <ItemGroup>
     <PackageReference Include="Duende.IdentityServer" Version="5.0.0" />
-    <PackageReference Include="Rsk.Saml" Version="4.0.0-preview6" />
-    <PackageReference Include="Rsk.Saml.DuendeIdentityServer" Version="5.0.0-preview6" />
+    <PackageReference Include="Rsk.Saml" Version="4.0.0" />
+    <PackageReference Include="Rsk.Saml.DuendeIdentityServer" Version="5.0.0" />
     
     <PackageReference Include="Serilog.AspNetCore" Version="3.4.0" />
   </ItemGroup>
