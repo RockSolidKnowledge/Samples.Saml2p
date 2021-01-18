@@ -3,17 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29201.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "idp", "idp\idp.csproj", "{BFC18757-ED9F-48D7-B302-877A050A9A90}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "sp", "sp\sp.csproj", "{80E04C21-A159-452D-8D56-812E705D2594}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "idpWithEf", "idpWithEf\idpWithEf.csproj", "{CA651973-310C-4BF1-BE17-8D698F770304}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "spWithMultipleIdps", "spWithMultipleIdps\spWithMultipleIdps.csproj", "{BBC57AAD-BDF2-487E-ACAF-88C8F8C80D3F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "idpWithIdpInitiated", "idpWithIdpInitiated\idpWithIdpInitiated.csproj", "{A17B3171-3122-4C36-890B-A6C6EF180762}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "spWithIdpInitiated", "spWithIdpInitiated\spWithIdpInitiated.csproj", "{5E1E1DBE-0B41-47D3-8590-3FD0BF63287D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityServer4", "IdentityServer4", "{EF06DDB3-96B6-406B-8C73-F5FC7015CF92}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "idp", "IdentityServer4\idp\idp.csproj", "{095B6A84-DB16-4B9E-BB1A-D1ECD70A6375}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "idpWithEf", "IdentityServer4\idpWithEf\idpWithEf.csproj", "{C1B7A133-BC88-46DC-959E-292208580400}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "idpWithIdpInitiated", "IdentityServer4\idpWithIdpInitiated\idpWithIdpInitiated.csproj", "{9566CD52-2951-4D6D-9489-B1CA7C3FB671}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "sp", "IdentityServer4\sp\sp.csproj", "{EE843CB9-41DC-41E1-9678-E3AABD8C3CE0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DuendeIdentityServer", "DuendeIdentityServer", "{9960A0F2-D3EC-4D23-BD96-07CDEBCFFA39}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DuendeIdP", "DuendeIdentityServer\DuendeIdP\DuendeIdP.csproj", "{BE2E4E1E-1086-4BAF-AB00-4D0D2BB57729}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,33 +27,44 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BFC18757-ED9F-48D7-B302-877A050A9A90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BFC18757-ED9F-48D7-B302-877A050A9A90}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BFC18757-ED9F-48D7-B302-877A050A9A90}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BFC18757-ED9F-48D7-B302-877A050A9A90}.Release|Any CPU.Build.0 = Release|Any CPU
-		{80E04C21-A159-452D-8D56-812E705D2594}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{80E04C21-A159-452D-8D56-812E705D2594}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{80E04C21-A159-452D-8D56-812E705D2594}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{80E04C21-A159-452D-8D56-812E705D2594}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CA651973-310C-4BF1-BE17-8D698F770304}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CA651973-310C-4BF1-BE17-8D698F770304}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CA651973-310C-4BF1-BE17-8D698F770304}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CA651973-310C-4BF1-BE17-8D698F770304}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BBC57AAD-BDF2-487E-ACAF-88C8F8C80D3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BBC57AAD-BDF2-487E-ACAF-88C8F8C80D3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BBC57AAD-BDF2-487E-ACAF-88C8F8C80D3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BBC57AAD-BDF2-487E-ACAF-88C8F8C80D3F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A17B3171-3122-4C36-890B-A6C6EF180762}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A17B3171-3122-4C36-890B-A6C6EF180762}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A17B3171-3122-4C36-890B-A6C6EF180762}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A17B3171-3122-4C36-890B-A6C6EF180762}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5E1E1DBE-0B41-47D3-8590-3FD0BF63287D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5E1E1DBE-0B41-47D3-8590-3FD0BF63287D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E1E1DBE-0B41-47D3-8590-3FD0BF63287D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5E1E1DBE-0B41-47D3-8590-3FD0BF63287D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{095B6A84-DB16-4B9E-BB1A-D1ECD70A6375}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{095B6A84-DB16-4B9E-BB1A-D1ECD70A6375}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{095B6A84-DB16-4B9E-BB1A-D1ECD70A6375}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{095B6A84-DB16-4B9E-BB1A-D1ECD70A6375}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1B7A133-BC88-46DC-959E-292208580400}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1B7A133-BC88-46DC-959E-292208580400}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1B7A133-BC88-46DC-959E-292208580400}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1B7A133-BC88-46DC-959E-292208580400}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9566CD52-2951-4D6D-9489-B1CA7C3FB671}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9566CD52-2951-4D6D-9489-B1CA7C3FB671}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9566CD52-2951-4D6D-9489-B1CA7C3FB671}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9566CD52-2951-4D6D-9489-B1CA7C3FB671}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE843CB9-41DC-41E1-9678-E3AABD8C3CE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE843CB9-41DC-41E1-9678-E3AABD8C3CE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE843CB9-41DC-41E1-9678-E3AABD8C3CE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE843CB9-41DC-41E1-9678-E3AABD8C3CE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE2E4E1E-1086-4BAF-AB00-4D0D2BB57729}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE2E4E1E-1086-4BAF-AB00-4D0D2BB57729}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE2E4E1E-1086-4BAF-AB00-4D0D2BB57729}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE2E4E1E-1086-4BAF-AB00-4D0D2BB57729}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{095B6A84-DB16-4B9E-BB1A-D1ECD70A6375} = {EF06DDB3-96B6-406B-8C73-F5FC7015CF92}
+		{C1B7A133-BC88-46DC-959E-292208580400} = {EF06DDB3-96B6-406B-8C73-F5FC7015CF92}
+		{9566CD52-2951-4D6D-9489-B1CA7C3FB671} = {EF06DDB3-96B6-406B-8C73-F5FC7015CF92}
+		{EE843CB9-41DC-41E1-9678-E3AABD8C3CE0} = {EF06DDB3-96B6-406B-8C73-F5FC7015CF92}
+		{BE2E4E1E-1086-4BAF-AB00-4D0D2BB57729} = {9960A0F2-D3EC-4D23-BD96-07CDEBCFFA39}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F38779C6-42F2-4A71-AEDA-8BB78CD8A559}

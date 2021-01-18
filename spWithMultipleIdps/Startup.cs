@@ -20,7 +20,7 @@ namespace spWithMultipleIdps
                     options.IdentityProviderOptions = new IdpOptions
                     {
                         EntityId = "https://localhost:5000",
-                        SigningCertificates = {new X509Certificate2("idsrv3test.cer")},
+                        SigningCertificates = { new X509Certificate2("idsrv3test.cer") },
                         SingleSignOnEndpoint = new SamlEndpoint("https://localhost:5000/saml/sso", SamlBindingTypes.HttpRedirect),
                         SingleLogoutEndpoint = new SamlEndpoint("https://localhost:5000/saml/slo", SamlBindingTypes.HttpRedirect),
                     };
@@ -57,6 +57,24 @@ namespace spWithMultipleIdps
 
                     options.NameIdClaimType = "sub";
                     options.CallbackPath = "/signin-saml-2";
+                    options.SignInScheme = "cookie";
+                })
+                .AddSaml2p("duende", options =>
+                {
+                    options.Licensee = "";
+                    options.LicenseKey = "";
+
+                    options.IdentityProviderMetadataAddress = "https://localhost:5003/saml/metadata";
+
+                    options.ServiceProviderOptions = new SpOptions
+                    {
+                        EntityId = "https://localhost:5002/saml",
+                        MetadataPath = "/saml/metadata",
+                        SignAuthenticationRequests = false
+                    };
+
+                    options.NameIdClaimType = "sub";
+                    options.CallbackPath = "/signin-saml-3";
                     options.SignInScheme = "cookie";
                 });
         }
