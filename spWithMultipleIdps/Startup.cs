@@ -28,7 +28,7 @@ namespace spWithMultipleIdps
                     options.ServiceProviderOptions = new SpOptions
                     {
                         EntityId = "https://localhost:5002/saml",
-                        MetadataPath = "/saml/metadata",
+                        MetadataPath = "/saml/metadata-saml-1",
                         SignAuthenticationRequests = false
                     };
 
@@ -51,7 +51,7 @@ namespace spWithMultipleIdps
                     options.ServiceProviderOptions = new SpOptions
                     {
                         EntityId = "https://localhost:5002/saml",
-                        MetadataPath = "/saml/metadata",
+                        MetadataPath = "/saml/metadata-saml-2",
                         SignAuthenticationRequests = false
                     };
 
@@ -69,7 +69,7 @@ namespace spWithMultipleIdps
                     options.ServiceProviderOptions = new SpOptions
                     {
                         EntityId = "https://localhost:5002/saml",
-                        MetadataPath = "/saml/metadata",
+                        MetadataPath = "/saml/metadata-saml-3",
                         SignAuthenticationRequests = false
                     };
 
