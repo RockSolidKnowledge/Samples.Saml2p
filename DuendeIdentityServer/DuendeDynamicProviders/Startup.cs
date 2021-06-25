@@ -53,7 +53,7 @@ namespace DuendeDynamicProviders
                     // Otherwise you will get "request expired error"
                     options.CorrelationCookie.Name = "Saml2pCorrelation-2";
                 })
-                //.AddIdentityProviderStore<InMemorySamlProviderStore>();
+                //.AddIdentityProviderStore<SamlIdentityProviderStore>();
                 .AddInMemoryIdentityProviders(new List<SamlDynamicIdentityProvider>
                 {
                     new SamlDynamicIdentityProvider
