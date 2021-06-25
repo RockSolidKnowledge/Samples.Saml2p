@@ -18,6 +18,7 @@ The [master](https://github.com/RockSolidKnowledge/Samples.IdentityServer4.Saml2
 	- **sp:** an IdentityServer4 implementation configured to act as both a SAML Identity Provider and a SAML Service Provider
 - **DuendeIdentityServer**
 	- **DuendeIdP:** a Duende.IdentityServer implementation configured to act as a SAML Identity Provider with Service Provider configuration loaded from memory
+	- **DuendeDynamicProviders:** A Duende.IdentityServer implementation acting as a SAML Service Provider with dynamic identity providers
 
 
 ## Getting Started

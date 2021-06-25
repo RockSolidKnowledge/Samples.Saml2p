@@ -76,6 +76,30 @@ namespace spWithMultipleIdps
                     options.NameIdClaimType = "sub";
                     options.CallbackPath = "/signin-saml-3";
                     options.SignInScheme = "cookie";
+                })
+                .AddSaml2p("duendeDynamicProviders", options =>
+                {
+                    options.Licensee = "";
+                    options.LicenseKey = "";
+
+                    options.IdentityProviderOptions = new IdpOptions
+                    {
+                        EntityId = "https://localhost:5004",
+                        SigningCertificates = { new X509Certificate2("testclient.cer") },
+                        SingleSignOnEndpoint = new SamlEndpoint("https://localhost:5004/saml/sso", SamlBindingTypes.HttpRedirect),
+                        SingleLogoutEndpoint = new SamlEndpoint("https://localhost:5004/saml/slo", SamlBindingTypes.HttpRedirect),
+                    };
+
+                    options.ServiceProviderOptions = new SpOptions
+                    {
+                        EntityId = "https://localhost:5002/saml",
+                        MetadataPath = "/saml/metadata-saml-4",
+                        SignAuthenticationRequests = false
+                    };
+
+                    options.NameIdClaimType = "sub";
+                    options.CallbackPath = "/signin-saml-4";
+                    options.SignInScheme = "cookie";
                 });
         }
 
