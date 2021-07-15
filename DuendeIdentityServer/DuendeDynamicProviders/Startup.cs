@@ -44,14 +44,9 @@ namespace DuendeDynamicProviders
             // SP configuration - dynamic providers
             builder.AddSamlDynamicProvider(options =>
                 {
-                    // unstorable/reusable data. This will override the data stored
-
+                    // unstorable/reusable data, such as license information and events. This will override the data stored
                     options.Licensee = "";
                     options.LicenseKey = "";
-
-                    // only required when running on localhost. This cookie is used by the SAML SP. If you are running multiple SPs, then the cookie name must be different for each SP.
-                    // Otherwise you will get "request expired error"
-                    options.CorrelationCookie.Name = "Saml2pCorrelation-2";
                 })
                 //.AddIdentityProviderStore<SamlIdentityProviderStore>();
                 .AddInMemoryIdentityProviders(new List<SamlDynamicIdentityProvider>
