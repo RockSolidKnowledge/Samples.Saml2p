@@ -97,7 +97,14 @@ namespace idp
                     ClientName = "RSK SAML2P Test Client - Multiple SP",
                     ProtocolType = IdentityServerConstants.ProtocolTypes.Saml2p,
                     AllowedScopes = {"openid", "profile"}
-                }
+                },
+                new Client
+                {
+                    ClientId = "https://localhost:5004/saml",
+                    ClientName = "RSK Duende Dynamic Provdiers Test Client",
+                    ProtocolType = IdentityServerConstants.ProtocolTypes.Saml2p,
+                    AllowedScopes = {"openid", "profile"}
+                },
             };
         }
         public static IEnumerable<ServiceProvider> GetServiceProviders()
@@ -116,6 +123,12 @@ namespace idp
                     EntityId = "https://localhost:5002/saml",
                     AssertionConsumerServices =
                         {new Service(SamlConstants.BindingTypes.HttpPost, "https://localhost:5002/signin-saml-1")}
+                },
+                new ServiceProvider
+                {
+                    EntityId = "https://localhost:5004/saml",
+                    AssertionConsumerServices =
+                        {new Service(SamlConstants.BindingTypes.HttpPost, "https://localhost:5004/federation/saml/signin-saml")}
                 }
             };
         }
