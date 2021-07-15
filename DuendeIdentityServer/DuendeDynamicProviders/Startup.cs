@@ -8,7 +8,6 @@ using IdentityServerHost.Quickstart.UI;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Rsk.AspNetCore.Authentication.Saml2p;
-using Rsk.Saml.Configuration;
 using System.Security.Cryptography.X509Certificates;
 using Rsk.Saml.DuendeIdentityServer.DynamicProviders;
 
@@ -32,15 +31,6 @@ namespace DuendeDynamicProviders
             builder.AddInMemoryClients(Config.GetClients());
             builder.AddSigningCredential(new X509Certificate2("testclient.pfx", "test"));
 
-            // OPTIONAL - only required if you want to be a SAML IdP too
-            builder.AddSamlPlugin(options =>
-                {
-                    options.Licensee = "";
-                    options.LicenseKey = "";
-                    options.WantAuthenticationRequestsSigned = false;
-                })
-                .AddInMemoryServiceProviders(Config.GetServiceProviders());
-
             // SP configuration - dynamic providers
             builder.AddSamlDynamicProvider(options =>
                 {
@@ -48,7 +38,11 @@ namespace DuendeDynamicProviders
                     options.Licensee = "";
                     options.LicenseKey = "";
                 })
+
+                // Use EntityFramework store for storing identity providers
                 //.AddIdentityProviderStore<SamlIdentityProviderStore>();
+
+                // use in memory store for storing identity providers
                 .AddInMemoryIdentityProviders(new List<SamlDynamicIdentityProvider>
                 {
                     new SamlDynamicIdentityProvider
@@ -68,12 +62,12 @@ namespace DuendeDynamicProviders
                             ServiceProviderOptions = new SpOptions
                             {
                                 EntityId = "https://localhost:5004/saml",
-                                MetadataPath = "/saml/metadata-sp",
+                                MetadataPath = "/federation/saml/metadata",
                                 SignAuthenticationRequests = false // OPTIONAL - use if you want to sign your auth requests
                             },
 
                             NameIdClaimType = "sub",
-                            CallbackPath = "/federation/saml/signin-saml", // Duende prefixes "/federation/{scheme}" to call back paths
+                            CallbackPath = "/federation/saml/signin-saml", // Duende prefixes "/federation/{scheme}" to all paths
                             SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme,
                         },
 
@@ -95,8 +89,7 @@ namespace DuendeDynamicProviders
             app.UseStaticFiles();
             app.UseRouting();
 
-            app.UseIdentityServer()
-                .UseIdentityServerSamlPlugin(); // OPTIONAL - only required if you want to be a SAML IdP too
+            app.UseIdentityServer();
 
             app.UseAuthorization();
 

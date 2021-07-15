@@ -5,8 +5,6 @@
 using Duende.IdentityServer.Models;
 using System.Collections.Generic;
 using Duende.IdentityServer;
-using Rsk.Saml;
-using Rsk.Saml.Models;
 
 namespace DuendeDynamicProviders
 {
@@ -44,23 +42,10 @@ namespace DuendeDynamicProviders
             {
                 new Client
                 {
-                    ClientId = "https://localhost:5002/saml",
-                    ClientName = "RSK SAML2P Test Client - Multiple SP",
-                    ProtocolType = IdentityServerConstants.ProtocolTypes.Saml2p,
+                    ClientId = "https://localhost:5002",
+                    ClientName = "client",
+                    ProtocolType = IdentityServerConstants.ProtocolTypes.OpenIdConnect,
                     AllowedScopes = {"openid", "profile"}
-                }
-            };
-        }
-
-        public static IEnumerable<ServiceProvider> GetServiceProviders()
-        {
-            return new[]
-            {
-                new ServiceProvider
-                {
-                    EntityId = "https://localhost:5002/saml",
-                    AssertionConsumerServices =
-                        {new Service(SamlConstants.BindingTypes.HttpPost, "https://localhost:5002/signin-saml-4")}
                 }
             };
         }
