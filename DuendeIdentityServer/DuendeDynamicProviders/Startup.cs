@@ -35,8 +35,8 @@ namespace DuendeDynamicProviders
             builder.AddSamlDynamicProvider(options =>
                 {
                     // unstorable/reusable data, such as license information and events. This will override the data stored
-                    options.Licensee = "";
-                    options.LicenseKey = "";
+                    options.Licensee = "your DEMO Licensee";
+                    options.LicenseKey = "your DEMO LicenseKey";
                 })
 
                 // Use EntityFramework store for storing identity providers

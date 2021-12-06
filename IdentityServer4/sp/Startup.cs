@@ -30,8 +30,8 @@ namespace sp
             // OPTIONAL - only required if you want to be a SAML IdP too
             builder.AddSamlPlugin(options =>
                 {
-                    options.Licensee = "";
-                    options.LicenseKey = "";
+                    options.Licensee = "your DEMO Licensee";
+                    options.LicenseKey = "your DEMO LicenseKey";
 
                     options.WantAuthenticationRequestsSigned = false;
                 })

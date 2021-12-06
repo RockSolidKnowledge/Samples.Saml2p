@@ -1,61 +1,54 @@
-using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Rsk.AspNetCore.Authentication.Saml2p;
+using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 
-namespace spWithIdpInitiated
-{
-    public class Startup
-    {
-        public void ConfigureServices(IServiceCollection services)
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+builder.Services.AddControllersWithViews();
+
+builder.Services.AddAuthentication()
+    .AddCookie("cookie")
+    .AddSaml2p("saml2p", options => {
+        options.Licensee = "your DEMO Licensee";
+        options.LicenseKey = "your DEMO LicenseKey";
+
+        options.IdentityProviderOptions = new IdpOptions
         {
-            services.AddControllersWithViews();
+            EntityId = "https://localhost:5000",
+            SigningCertificates = new List<X509Certificate2> { new X509Certificate2("idsrv3test.cer") },
+            SingleSignOnEndpoint = new SamlEndpoint("https://localhost:5000/saml/sso", SamlBindingTypes.HttpRedirect),
+            SingleLogoutEndpoint = new SamlEndpoint("https://localhost:5000/saml/slo", SamlBindingTypes.HttpRedirect),
+        };
 
-            services.AddAuthentication()
-                .AddCookie("cookie")
-                .AddSaml2p("saml2p", options => {
-                    options.Licensee = "";
-                    options.LicenseKey = "";
-
-                    options.IdentityProviderOptions = new IdpOptions
-                    {
-                        EntityId = "https://localhost:5000",
-                        SigningCertificates = new List<X509Certificate2> { new X509Certificate2("idsrv3test.cer") },
-                        SingleSignOnEndpoint = new SamlEndpoint("https://localhost:5000/saml/sso", SamlBindingTypes.HttpRedirect),
-                        SingleLogoutEndpoint = new SamlEndpoint("https://localhost:5000/saml/slo", SamlBindingTypes.HttpRedirect),
-                    };
-
-                    options.ServiceProviderOptions = new SpOptions
-                    {
-                        EntityId = "https://localhost:5001/saml",
-                        MetadataPath = "/saml/metadata",
-                        SignAuthenticationRequests = false
-                    };
-
-                    options.NameIdClaimType = "sub";
-                    options.CallbackPath = "/signin-saml";
-                    options.SignInScheme = "cookie";
-
-                    // IdP-Initiated SSO
-                    options.AllowIdpInitiatedSso = true;
-                    options.IdPInitiatedSsoCompletionPath = "/";
-                });
-        }
-
-        public void Configure(IApplicationBuilder app)
+        options.ServiceProviderOptions = new SpOptions
         {
-            app.UseHttpsRedirection();
+            EntityId = "https://localhost:5001/saml",
+            MetadataPath = "/saml/metadata",
+            SignAuthenticationRequests = false
+        };
 
-            app.UseDeveloperExceptionPage();
+        options.NameIdClaimType = "sub";
+        options.CallbackPath = "/signin-saml";
+        options.SignInScheme = "cookie";
 
-            app.UseStaticFiles();
-            app.UseRouting();
+        // IdP-Initiated SSO
+        options.AllowIdpInitiatedSso = true;
+        options.IdPInitiatedSsoCompletionPath = "/";
+    });
 
-            app.UseAuthentication();
-            app.UseAuthorization();
+var app = builder.Build();
 
-            app.UseEndpoints(endpoints => endpoints.MapDefaultControllerRoute());
-        }
-    }
-}
+app.UseHttpsRedirection();
+
+app.UseStaticFiles();
+app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapDefaultControllerRoute();
+
+app.Run();
