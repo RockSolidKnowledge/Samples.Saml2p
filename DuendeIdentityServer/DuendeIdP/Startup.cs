@@ -53,8 +53,8 @@ namespace DuendeIdP
 
             builder.AddSamlPlugin(options =>
                 {
-                    options.Licensee = "";
-                    options.LicenseKey = "";
+                    options.Licensee = "your DEMO Licensee";
+                    options.LicenseKey = "your DEMO LicenseKey";
 
                     options.WantAuthenticationRequestsSigned = false;
                 })
