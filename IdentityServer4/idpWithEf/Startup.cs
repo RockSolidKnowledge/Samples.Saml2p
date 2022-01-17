@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Rsk.Saml.Configuration;
 using Rsk.Saml.IdentityProvider.Storage.EntityFramework.DbContexts;
-using Rsk.Saml.IdentityProvider.Storage.EntityFramework.Interfaces;
+using Rsk.Saml.IdentityProvider.Storage.EntityFramework;
 using Rsk.Saml.IdentityProvider.Storage.EntityFramework.Mappers;
 using Rsk.Saml.IdentityProvider.Storage.EntityFramework.Stores;
 
