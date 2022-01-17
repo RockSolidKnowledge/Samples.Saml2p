@@ -40,8 +40,8 @@ namespace sp
             // SP configuration
             services.AddAuthentication()
                 .AddSaml2p("saml2p", options => {
-                    options.Licensee = "";
-                    options.LicenseKey = "";
+                    options.Licensee = "your DEMO Licensee";
+                    options.LicenseKey = "your DEMO LicenseKey";
 
                     // The IdP you want to integrate with
                     options.IdentityProviderOptions = new IdpOptions
