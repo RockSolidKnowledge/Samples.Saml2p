@@ -30,8 +30,8 @@ namespace idpWithIdpInitiated
             // Configure SAML Identity Provider and authorized Service Providers
             builder.AddSamlPlugin(options =>
                 {
-                    options.Licensee = "your DEMO Licensee";
-                    options.LicenseKey = "your DEMO LicenseKey";
+                    options.Licensee = "/* your DEMO Licensee */";
+                    options.LicenseKey = "/* your DEMO LicenseKey */";
 
                     options.WantAuthenticationRequestsSigned = false;
                 })

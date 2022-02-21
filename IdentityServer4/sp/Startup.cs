@@ -30,8 +30,8 @@ namespace sp
             // OPTIONAL - only required if you want to be a SAML IdP too
             builder.AddSamlPlugin(options =>
                 {
-                    options.Licensee = "your DEMO Licensee";
-                    options.LicenseKey = "your DEMO LicenseKey";
+                    options.Licensee = "/* your DEMO Licensee */";
+                    options.LicenseKey = "/* your DEMO LicenseKey */";
 
                     options.WantAuthenticationRequestsSigned = false;
                 })
@@ -40,8 +40,8 @@ namespace sp
             // SP configuration
             services.AddAuthentication()
                 .AddSaml2p("saml2p", options => {
-                    options.Licensee = "your DEMO Licensee";
-                    options.LicenseKey = "your DEMO LicenseKey";
+                    options.Licensee = "/* your DEMO Licensee */";
+                    options.LicenseKey = "/* your DEMO LicenseKey */";
 
                     // The IdP you want to integrate with
                     options.IdentityProviderOptions = new IdpOptions
