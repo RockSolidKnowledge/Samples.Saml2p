@@ -11,8 +11,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddAuthentication()
     .AddCookie("cookie")
     .AddSaml2p("idp1", options => {
-        options.Licensee = "your DEMO Licensee";
-        options.LicenseKey = "your DEMO LicenseKey";
+        options.Licensee = "/* your DEMO Licensee */";
+        options.LicenseKey = "/* your DEMO LicenseKey */";
 
         options.IdentityProviderOptions = new IdpOptions
         {
@@ -34,8 +34,8 @@ builder.Services.AddAuthentication()
         options.SignInScheme = "cookie";
     })
     .AddSaml2p("idp2", options => {
-        options.Licensee = "your DEMO Licensee";
-        options.LicenseKey = "your DEMO LicenseKey";
+        options.Licensee = "/* your DEMO Licensee */";
+        options.LicenseKey = "/* your DEMO LicenseKey */";
 
         options.IdentityProviderOptions = new IdpOptions
         {
@@ -58,8 +58,8 @@ builder.Services.AddAuthentication()
     })
     .AddSaml2p("duende", options =>
     {
-        options.Licensee = "your DEMO Licensee";
-        options.LicenseKey = "your DEMO LicenseKey";
+        options.Licensee = "/* your DEMO Licensee */";
+        options.LicenseKey = "/* your DEMO LicenseKey */";
 
         options.IdentityProviderMetadataAddress = "https://localhost:5003/saml/metadata";
 

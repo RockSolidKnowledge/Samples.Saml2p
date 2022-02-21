@@ -12,8 +12,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddAuthentication()
     .AddCookie("cookie")
     .AddSaml2p("saml2p", options => {
-        options.Licensee = "your DEMO Licensee";
-        options.LicenseKey = "your DEMO LicenseKey";
+        options.Licensee = "/* your DEMO Licensee */";
+        options.LicenseKey = "/* your DEMO LicenseKey */";
 
         options.IdentityProviderOptions = new IdpOptions
         {
