@@ -23,6 +23,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DuendeIdP", "DuendeIdentity
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DuendeDynamicProviders", "DuendeIdentityServer\DuendeDynamicProviders\DuendeDynamicProviders.csproj", "{99583A23-042F-4E0E-921A-D409E1BD1A0A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "spWithSingleIdp", "spWithSingleIdp\spWithSingleIdp.csproj", "{08734969-2F2A-4D9C-96F4-C2F4A2A68467}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{99583A23-042F-4E0E-921A-D409E1BD1A0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{99583A23-042F-4E0E-921A-D409E1BD1A0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{99583A23-042F-4E0E-921A-D409E1BD1A0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08734969-2F2A-4D9C-96F4-C2F4A2A68467}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08734969-2F2A-4D9C-96F4-C2F4A2A68467}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08734969-2F2A-4D9C-96F4-C2F4A2A68467}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08734969-2F2A-4D9C-96F4-C2F4A2A68467}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
