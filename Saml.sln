@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
@@ -34,6 +34,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebClient.SAML.1", "DuendeIdentityServer\SLO\SamlOidcSLO\WebClient.SAML.1\WebClient.SAML.1.csproj", "{35A985EE-3903-4F4B-A94C-A92B2DD2A49B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebClient.SAML.2", "DuendeIdentityServer\SLO\SamlOidcSLO\WebClient.SAML.2\WebClient.SAML.2.csproj", "{20851470-CF31-4F28-B2ED-E201814909E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "spWithSingleIdp", "spWithSingleIdp\spWithSingleIdp.csproj", "{08734969-2F2A-4D9C-96F4-C2F4A2A68467}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -93,6 +95,10 @@ Global
 		{20851470-CF31-4F28-B2ED-E201814909E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{20851470-CF31-4F28-B2ED-E201814909E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{20851470-CF31-4F28-B2ED-E201814909E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08734969-2F2A-4D9C-96F4-C2F4A2A68467}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08734969-2F2A-4D9C-96F4-C2F4A2A68467}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08734969-2F2A-4D9C-96F4-C2F4A2A68467}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08734969-2F2A-4D9C-96F4-C2F4A2A68467}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
