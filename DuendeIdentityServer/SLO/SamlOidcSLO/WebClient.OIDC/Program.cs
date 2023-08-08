@@ -57,4 +57,4 @@ app.Use(async (context, next) =>
 
 app.MapRazorPages().RequireAuthorization();
 
-app.Run();
+app.Run("https://localhost:5002");

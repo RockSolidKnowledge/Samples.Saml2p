@@ -26,7 +26,7 @@ try
         .ConfigureServices()
         .ConfigurePipeline();
     
-    app.Run();
+    app.Run("https://localhost:5001");
 }
 catch (Exception ex)
 {

@@ -1,7 +1,6 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Cryptography.X509Certificates;
 using Common;
-using Microsoft.AspNetCore.Authentication;
 using Rsk.AspNetCore.Authentication.Saml2p;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -31,7 +30,7 @@ builder.Services.AddAuthentication(options =>
         options.ServiceProviderOptions = new SpOptions()
         {
             EntityId = "https://localhost:5003",
-            SigningCertificate = new X509Certificate2("testclient.pfx", "test"),
+            SigningCertificate = new X509Certificate2("../common/testclient.pfx", "test"),
             MetadataPath = new PathString("/saml/metadata") 
         };
 
@@ -63,4 +62,4 @@ app.UseAuthorization();
 
 app.MapRazorPages().RequireAuthorization();
 
-app.Run();
+app.Run("https://localhost:5003");
