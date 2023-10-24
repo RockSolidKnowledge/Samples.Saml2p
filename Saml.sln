@@ -1,4 +1,3 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
@@ -25,17 +24,21 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DuendeDynamicProviders", "D
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SamlOidcSLO", "SamlOidcSLO", "{F5D0A9C6-1AE7-4BE9-A06E-2979A1453CD6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServer", "DuendeIdentityServer\SLO\SamlOidcSLO\IdentityServer\IdentityServer.csproj", "{F9786DDA-6EDE-490A-821F-4F060EFF98F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer", "DuendeIdentityServer\SLO\SamlOidcSLO\IdentityServer\IdentityServer.csproj", "{F9786DDA-6EDE-490A-821F-4F060EFF98F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "DuendeIdentityServer\SLO\SamlOidcSLO\Common\Common.csproj", "{D96DA401-97A7-46AC-A1A7-6716D4AEAE55}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "DuendeIdentityServer\SLO\SamlOidcSLO\Common\Common.csproj", "{D96DA401-97A7-46AC-A1A7-6716D4AEAE55}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebClient.OIDC", "DuendeIdentityServer\SLO\SamlOidcSLO\WebClient.OIDC\WebClient.OIDC.csproj", "{E39F9182-E9E5-4128-AE3C-B6800952B845}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebClient.OIDC", "DuendeIdentityServer\SLO\SamlOidcSLO\WebClient.OIDC\WebClient.OIDC.csproj", "{E39F9182-E9E5-4128-AE3C-B6800952B845}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebClient.SAML.1", "DuendeIdentityServer\SLO\SamlOidcSLO\WebClient.SAML.1\WebClient.SAML.1.csproj", "{35A985EE-3903-4F4B-A94C-A92B2DD2A49B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebClient.SAML.1", "DuendeIdentityServer\SLO\SamlOidcSLO\WebClient.SAML.1\WebClient.SAML.1.csproj", "{35A985EE-3903-4F4B-A94C-A92B2DD2A49B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebClient.SAML.2", "DuendeIdentityServer\SLO\SamlOidcSLO\WebClient.SAML.2\WebClient.SAML.2.csproj", "{20851470-CF31-4F28-B2ED-E201814909E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebClient.SAML.2", "DuendeIdentityServer\SLO\SamlOidcSLO\WebClient.SAML.2\WebClient.SAML.2.csproj", "{20851470-CF31-4F28-B2ED-E201814909E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "spWithSingleIdp", "spWithSingleIdp\spWithSingleIdp.csproj", "{08734969-2F2A-4D9C-96F4-C2F4A2A68467}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "spWithSingleIdp", "spWithSingleIdp\spWithSingleIdp.csproj", "{08734969-2F2A-4D9C-96F4-C2F4A2A68467}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OpenIddict", "OpenIddict", "{7E7271AB-9691-4F41-9311-200BD6CC8724}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenIddictIdP", "OpenIddict\OpenIddictIdP\OpenIddictIdP.csproj", "{5197A70C-DB0D-4045-9A72-AF3F80DD74E1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -99,6 +102,10 @@ Global
 		{08734969-2F2A-4D9C-96F4-C2F4A2A68467}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08734969-2F2A-4D9C-96F4-C2F4A2A68467}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{08734969-2F2A-4D9C-96F4-C2F4A2A68467}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5197A70C-DB0D-4045-9A72-AF3F80DD74E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5197A70C-DB0D-4045-9A72-AF3F80DD74E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5197A70C-DB0D-4045-9A72-AF3F80DD74E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5197A70C-DB0D-4045-9A72-AF3F80DD74E1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -116,6 +123,7 @@ Global
 		{E39F9182-E9E5-4128-AE3C-B6800952B845} = {F5D0A9C6-1AE7-4BE9-A06E-2979A1453CD6}
 		{35A985EE-3903-4F4B-A94C-A92B2DD2A49B} = {F5D0A9C6-1AE7-4BE9-A06E-2979A1453CD6}
 		{20851470-CF31-4F28-B2ED-E201814909E7} = {F5D0A9C6-1AE7-4BE9-A06E-2979A1453CD6}
+		{5197A70C-DB0D-4045-9A72-AF3F80DD74E1} = {7E7271AB-9691-4F41-9311-200BD6CC8724}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F38779C6-42F2-4A71-AEDA-8BB78CD8A559}
