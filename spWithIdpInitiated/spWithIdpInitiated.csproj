@@ -5,12 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\LicenseKey.cs" Link="LicenseKey.cs" />
+<Compile Include="..\LicenseKey.cs" Link="LicenseKey.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Rsk.Saml" Version="5.0.0" />
-  </ItemGroup>
+    <PackageReference Include="Rsk.Saml" Version="6.2.2" />
+</ItemGroup>
 
   <ItemGroup>
     <None Update="idsrv3test.cer">
