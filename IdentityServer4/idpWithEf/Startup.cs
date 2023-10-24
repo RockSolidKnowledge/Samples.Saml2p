@@ -11,6 +11,7 @@ using Rsk.Saml.IdentityProvider.Storage.EntityFramework.DbContexts;
 using Rsk.Saml.IdentityProvider.Storage.EntityFramework;
 using Rsk.Saml.IdentityProvider.Storage.EntityFramework.Mappers;
 using Rsk.Saml.IdentityProvider.Storage.EntityFramework.Stores;
+using Rsk.Saml.Samples;
 
 namespace idpWithEf
 {
@@ -41,8 +42,8 @@ namespace idpWithEf
             // Configure SAML Identity Provider and authorized Service Providers
             builder.AddSamlPlugin(options =>
                 {
-                    options.Licensee = "/* your DEMO Licensee */";
-                    options.LicenseKey = "/* your DEMO LicenseKey */";
+                    options.Licensee = Constants.Licensee;
+                    options.LicenseKey = Constants.LicenseKey;
 
                     options.WantAuthenticationRequestsSigned = false;
                 })

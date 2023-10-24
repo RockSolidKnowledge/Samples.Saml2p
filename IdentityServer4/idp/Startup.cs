@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Rsk.Saml.Configuration;
+using Rsk.Saml.Samples;
 
 namespace idp
 {
@@ -30,8 +31,8 @@ namespace idp
             // Configure SAML Identity Provider and authorized Service Providers
             builder.AddSamlPlugin(options =>
                 {
-                    options.Licensee = "/* your DEMO Licensee */";
-                    options.LicenseKey = "/* your DEMO LicenseKey */";
+                    options.Licensee = Constants.Licensee;
+                    options.LicenseKey = Constants.LicenseKey;
 
                     options.WantAuthenticationRequestsSigned = false;
                 })
