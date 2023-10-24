@@ -1,0 +1,19 @@
+﻿@using openiddictidp.ViewModels.Saml
+@model             IdpInitiatedSsoViewModel
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+
+<h2>IdpInitiatedSso</h2>
+
+@foreach(var sp in Model.IdpInitiatedSsoEnabledProviders)
+{
+    <form method="post" asp-action="ExecuteSpSso">
+        <label asp-for="ServiceProviderId">@sp.EntityId</label>
+        <input asp-for="ServiceProviderId" value="@sp.EntityId" hidden/>
+        <button type="submit">Log on</button>
+    </form>
+}
