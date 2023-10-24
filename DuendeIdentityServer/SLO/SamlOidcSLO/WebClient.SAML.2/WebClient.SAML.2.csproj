@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\..\..\..\LicenseKey.cs" Link="LicenseKey.cs" />
+<Compile Include="..\..\..\..\LicenseKey.cs" Link="LicenseKey.cs" />
   </ItemGroup>
 
   <ItemGroup>

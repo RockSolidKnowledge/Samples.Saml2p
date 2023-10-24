@@ -6,14 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\..\LicenseKey.cs" Link="LicenseKey.cs" />
+<Compile Include="..\..\LicenseKey.cs" Link="LicenseKey.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Duende.IdentityServer" Version="6.0.0" />
     <PackageReference Include="Rsk.Saml" Version="5.0.0" />
     <PackageReference Include="Rsk.Saml.DuendeIdentityServer" Version="6.0.0" />
-    
-    <PackageReference Include="Serilog.AspNetCore" Version="4.1.0" />
+<PackageReference Include="Serilog.AspNetCore" Version="7.0.0" />
   </ItemGroup>
 </Project>
