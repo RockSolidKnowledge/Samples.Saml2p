@@ -9,8 +9,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Rsk.Saml" Version="6.0.0" />
-  </ItemGroup>
+    <PackageReference Include="Rsk.Saml" Version="6.2.2" />
+</ItemGroup>
 
   <ItemGroup>
     <None Update="idsrv3test.cer">
