@@ -24,7 +24,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" PrivateAssets="all" Version="7.0.12" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.10" />
     <PackageReference Include="OpenIddict.Quartz" Version="4.9.0" />
-    <PackageReference Include="Quartz.Extensions.Hosting" Version="3.6.3" />
+    <PackageReference Include="Quartz.Extensions.Hosting" Version="3.7.0" />
     <PackageReference Include="Rsk.Saml.OpenIddict" Version="8.0.0-preview1" />
     <PackageReference Include="Rsk.Saml.OpenIddict.EntityFrameworkCore" Version="8.0.0-preview1" />
     <PackageReference Include="Rsk.Saml.OpenIddict.Quartz" Version="1.0.0" />
