@@ -30,9 +30,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Common\Common.csproj" />
-  </ItemGroup>
-  <ItemGroup>
     <_ContentIncludedByDefault Remove="Pages\Ciba\All.cshtml" />
     <_ContentIncludedByDefault Remove="Pages\Ciba\Consent.cshtml" />
     <_ContentIncludedByDefault Remove="Pages\Ciba\Index.cshtml" />
@@ -44,5 +41,8 @@
     <_ContentIncludedByDefault Remove="Pages\Grants\Index.cshtml" />
     <_ContentIncludedByDefault Remove="Pages\ExternalLogin\Callback.cshtml" />
     <_ContentIncludedByDefault Remove="Pages\ExternalLogin\Challenge.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\..\..\LicenseKey.cs" Link="LicenseKey.cs" />
   </ItemGroup>
 </Project>

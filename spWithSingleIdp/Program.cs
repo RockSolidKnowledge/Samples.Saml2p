@@ -1,4 +1,5 @@
 using Rsk.AspNetCore.Authentication.Saml2p;
+using Rsk.Saml.Samples;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,8 +11,8 @@ builder.Services.AddAuthentication(options =>
     .AddCookie("cookie")
     .AddSaml2p("saml",options=>
     {
-        options.Licensee = "/* your DEMO Licensee */";
-        options.LicenseKey = "/* your DEMO LicenseKey */";
+        options.Licensee = LicenseKey.Licensee;
+        options.LicenseKey = LicenseKey.Key;
         
         options.IdentityProviderMetadataAddress = "https://localhost:5003/saml/metadata";
 

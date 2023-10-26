@@ -1,6 +1,6 @@
 # Sample projects implementing Rsk SAML component
 
-SAML2P service provider and identity provider implementations. We support various IdentityServer implementations, including IdentityServer4 and Duende IdentityServer. 
+SAML2P service provider and identity provider implementations. We support various IdentityServer implementations, including IdentityServer4, Duende IdentityServer and OpenIddict. 
 
 The SAML2P component is available from [www.identityserver.com/products/saml2p](https://www.identityserver.com/products/saml2p).
 
@@ -19,6 +19,7 @@ The [master](https://github.com/RockSolidKnowledge/Samples.IdentityServer4.Saml2
 - **DuendeIdentityServer**
 	- **DuendeIdP:** a Duende.IdentityServer implementation configured to act as a SAML Identity Provider with Service Provider configuration loaded from memory. This uses the Duende Automatic Key Management feature for signing key
 	- **DuendeDynamicProviders:** A Duende.IdentityServer implementation acting as a SAML Service Provider with in-memory dynamic identity providers
+	- **OpenIddictIdP:** an OpenIddict implementation configured to act as an SAML Identity Provider with Service Provider configuration loaded from an SQL Server database using EntityFrameworkCore. 
 
 
 ## Getting Started

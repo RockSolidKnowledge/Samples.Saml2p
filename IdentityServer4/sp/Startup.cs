@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Rsk.AspNetCore.Authentication.Saml2p;
 using Rsk.Saml.Configuration;
+using Rsk.Saml.Samples;
 
 namespace sp
 {
@@ -30,8 +31,8 @@ namespace sp
             // OPTIONAL - only required if you want to be a SAML IdP too
             builder.AddSamlPlugin(options =>
                 {
-                    options.Licensee = "/* your DEMO Licensee */";
-                    options.LicenseKey = "/* your DEMO LicenseKey */";
+                    options.Licensee = LicenseKey.Licensee;
+                    options.LicenseKey = LicenseKey.Key;
 
                     options.WantAuthenticationRequestsSigned = false;
                 })
