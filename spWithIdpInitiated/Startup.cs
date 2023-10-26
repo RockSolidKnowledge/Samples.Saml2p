@@ -13,8 +13,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddAuthentication()
     .AddCookie("cookie")
     .AddSaml2p("saml2p", options => {
-        options.Licensee = Constants.Licensee;
-        options.LicenseKey = Constants.LicenseKey;
+        options.Licensee = LicenseKey.Licensee;
+        options.LicenseKey = LicenseKey.Key;
 
         options.IdentityProviderOptions = new IdpOptions
         {

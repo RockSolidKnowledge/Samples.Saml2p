@@ -42,8 +42,8 @@ namespace idpWithEf
             // Configure SAML Identity Provider and authorized Service Providers
             builder.AddSamlPlugin(options =>
                 {
-                    options.Licensee = Constants.Licensee;
-                    options.LicenseKey = Constants.LicenseKey;
+                    options.Licensee = LicenseKey.Licensee;
+                    options.LicenseKey = LicenseKey.Key;
 
                     options.WantAuthenticationRequestsSigned = false;
                 })

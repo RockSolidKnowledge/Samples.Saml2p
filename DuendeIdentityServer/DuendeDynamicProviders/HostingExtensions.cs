@@ -34,8 +34,8 @@ internal static class HostingExtensions
         isBuilder.AddSamlDynamicProvider(options =>
         {
             // unstorable/reusable data, such as license information and events. This will override the data stored
-            options.Licensee = Constants.Licensee;
-            options.LicenseKey = Constants.LicenseKey;
+            options.Licensee = LicenseKey.Licensee;
+            options.LicenseKey = LicenseKey.Key;
         })
 
             // Use EntityFramework store for storing identity providers

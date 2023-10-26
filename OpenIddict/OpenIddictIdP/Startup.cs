@@ -145,8 +145,8 @@ public class Startup
 
                             serverOptions.IdpOptions = new SamlIdpOptions()
                             {
-                                Licensee = Constants.Licensee,
-                                LicenseKey =Constants.LicenseKey,
+                                Licensee = LicenseKey.Licensee,
+                                LicenseKey =LicenseKey.Key,
                                 UseIFramesForSlo = false
 
                             };

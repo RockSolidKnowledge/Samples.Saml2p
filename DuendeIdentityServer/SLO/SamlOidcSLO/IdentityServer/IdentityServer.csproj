@@ -43,6 +43,6 @@
     <_ContentIncludedByDefault Remove="Pages\ExternalLogin\Challenge.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\..\..\Constants.cs" Link="Constants.cs" />
+    <Compile Include="..\..\..\..\LicenseKey.cs" Link="LicenseKey.cs" />
   </ItemGroup>
 </Project>

@@ -37,8 +37,8 @@ internal static class HostingExtensions
 
         isBuilder.AddSamlPlugin(options =>
             {
-                options.Licensee = Constants.Licensee;
-                options.LicenseKey = Constants.LicenseKey;
+                options.Licensee = LicenseKey.Licensee;
+                options.LicenseKey = LicenseKey.Key;
 
                 options.WantAuthenticationRequestsSigned = false;
             })

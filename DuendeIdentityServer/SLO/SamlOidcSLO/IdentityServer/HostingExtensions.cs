@@ -31,8 +31,8 @@ internal static class HostingExtensions
             .AddTestUsers(TestUsers.Users)
             .AddSamlPlugin(options =>
             {
-                options.Licensee = Constants.Licensee;
-                options.LicenseKey = Constants.LicenseKey;
+                options.Licensee = LicenseKey.Licensee;
+                options.LicenseKey = LicenseKey.Key;
 
                 //Use Iterative SLO
                 options.UseIFramesForSlo = false;

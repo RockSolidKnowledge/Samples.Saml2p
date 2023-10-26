@@ -22,8 +22,8 @@ builder.Services.AddAuthentication(options =>
     })    
     .AddSaml2p("saml", options =>
     {
-        options.Licensee = Constants.Licensee;
-        options.LicenseKey = Constants.LicenseKey;
+        options.Licensee = LicenseKey.Licensee;
+        options.LicenseKey = LicenseKey.Key;
 
         options.IdentityProviderMetadataAddress = "https://localhost:5001/saml/metadata";
 
