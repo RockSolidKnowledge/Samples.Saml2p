@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Rsk.Saml" Version="6.2.2" />
+    <PackageReference Include="Rsk.Saml" Version="8.0.0" />
 </ItemGroup>
 
   <ItemGroup>
