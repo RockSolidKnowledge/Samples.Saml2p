@@ -13,7 +13,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="6.0.1" />
-    <PackageReference Include="Rsk.Saml" Version="6.0.0-preview1" />
+    <PackageReference Include="Rsk.Saml" Version="6.2.2" />
   </ItemGroup>
 
   <ItemGroup>

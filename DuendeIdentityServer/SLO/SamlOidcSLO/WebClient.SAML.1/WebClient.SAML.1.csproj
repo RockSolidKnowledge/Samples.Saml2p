@@ -9,7 +9,7 @@
 
   <ItemGroup>
 <Compile Include="..\..\..\..\LicenseKey.cs" Link="LicenseKey.cs" />
-  </ItemGroup>
+</ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="6.0.1" />
