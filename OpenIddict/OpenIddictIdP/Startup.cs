@@ -123,20 +123,15 @@ public class Startup
                 {
                     //use quartz to prune old SAML messages every 14 days.
                     builder.PruneSamlMessages();
+                    builder.PruneSamlArtifacts();
                     
                     //Already added the DbContext above
                     builder.UseSamlEntityFrameworkCore()
-                        .AddSamlMessageDbContext(optionsBuilder =>
-                        {
-                            //Configure the database provider to use.
-                            optionsBuilder.UseSqlServer(defaultConnectionString, x =>x.MigrationsAssembly(typeof(Startup).Assembly.FullName));
-                        })
-                        .AddSamlConfigurationDbContext(optionsBuilder =>
-                        {
-                            //Configure the database provider to use.
-                            optionsBuilder.UseSqlServer(defaultConnectionString,
-                                x => x.MigrationsAssembly(typeof(Startup).Assembly.FullName));
-                        });
+                        .AddSamlDbContexts(optionsBuilder =>
+                    {
+                        //Configure the database provider to use.
+                        optionsBuilder.UseSqlServer(defaultConnectionString, x => x.MigrationsAssembly(typeof(Startup).Assembly.FullName));
+                    });
 
                     builder.ConfigureSamlOpenIddictServerOptions(serverOptions =>
                         {
