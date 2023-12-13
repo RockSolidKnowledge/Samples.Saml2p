@@ -11,9 +11,12 @@ using Quartz;
 using Rsk.Saml.Configuration;
 using Rsk.Saml.OpenIddict.AspNetCore.Identity.Configuration.DependencyInjection;
 using Rsk.Saml.OpenIddict.Configuration.DependencyInjection;
-using Rsk.Saml.OpenIddict.EntityFrameworkCore.Configuration.DependacyInjection;
 using openiddictidp.Data;
+<<<<<<< HEAD
 using Rsk.Saml.Samples;
+=======
+using Rsk.Saml.OpenIddict.EntityFrameworkCore.Configuration.DependencyInjection;
+>>>>>>> d677df3 (Ensure all projects target .Net 6.0 and that all packages are upgraded to the latest minor versions that work with .Net 6.)
 using static OpenIddict.Abstractions.OpenIddictConstants;
 
 namespace openiddictidp;
