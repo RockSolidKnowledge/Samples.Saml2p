@@ -11,8 +11,8 @@
   <ItemGroup>
     <PackageReference Include="IdentityServer4" Version="4.1.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.1.32" />
-    <PackageReference Include="Rsk.Saml" Version="5.0.2" />
-    <PackageReference Include="Rsk.Saml.IdentityServer4" Version="5.0.1" />
+    <PackageReference Include="Rsk.Saml" Version="5.4.1" />
+    <PackageReference Include="Rsk.Saml.IdentityServer4" Version="5.3.1" />
     <PackageReference Include="Rsk.Saml.IdentityServer4.EntityFramework" Version="4.0.1" />
 
     <PackageReference Include="Serilog" Version="2.9.0" />
