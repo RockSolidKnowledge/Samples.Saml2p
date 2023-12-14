@@ -10,7 +10,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="6.0.25" />
     <PackageReference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="7.0.3" />
-    <PackageReference Include="Rsk.Saml" Version="6.2.2" />
+    <PackageReference Include="Rsk.Saml" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup>

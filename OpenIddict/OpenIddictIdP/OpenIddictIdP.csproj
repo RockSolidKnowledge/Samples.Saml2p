@@ -14,7 +14,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.25" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.25" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
-    <PackageReference Include="Rsk.Saml.OpenIddict.AspNetCore.Identity" Version="8.0.0-preview2" />
+    <PackageReference Include="Rsk.Saml.OpenIddict.AspNetCore.Identity" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,9 +25,9 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
     <PackageReference Include="OpenIddict.Quartz" Version="4.9.0" />
     <PackageReference Include="Quartz.Extensions.Hosting" Version="3.7.0" />
-    <PackageReference Include="Rsk.Saml.OpenIddict" Version="8.0.0-preview2" />
-    <PackageReference Include="Rsk.Saml.OpenIddict.EntityFrameworkCore" Version="8.0.0-preview2" />
-    <PackageReference Include="Rsk.Saml.OpenIddict.Quartz" Version="8.0.0-preview2" />
+    <PackageReference Include="Rsk.Saml.OpenIddict" Version="8.0.0" />
+    <PackageReference Include="Rsk.Saml.OpenIddict.EntityFrameworkCore" Version="8.0.0" />
+    <PackageReference Include="Rsk.Saml.OpenIddict.Quartz" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup>

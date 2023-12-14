@@ -8,19 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-<<<<<<< HEAD
 <Compile Include="..\..\..\..\LicenseKey.cs" Link="LicenseKey.cs" />
 </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="6.0.1" />
-    <PackageReference Include="Rsk.Saml" Version="6.0.1" />
-</ItemGroup>
-=======
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="6.0.25" />
-    <PackageReference Include="Rsk.Saml" Version="6.2.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="6.0.25"/>
+    <PackageReference Include="Rsk.Saml" Version="8.0.0" />
   </ItemGroup>
->>>>>>> d677df3 (Ensure all projects target .Net 6.0 and that all packages are upgraded to the latest minor versions that work with .Net 6.)
 
   <ItemGroup>
     <None Update="testclient.pfx">

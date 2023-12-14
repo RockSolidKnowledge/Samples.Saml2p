@@ -11,7 +11,7 @@
   </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Rsk.Saml" Version="8.0.0-rc1" />
+      <PackageReference Include="Rsk.Saml" Version="8.0.0" />
     </ItemGroup>
 
 </Project>

@@ -15,8 +15,8 @@
     <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="6.0.25" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="3.21.120" />
-    <PackageReference Include="Rsk.Saml.DuendeIdentityServer" Version="7.2.2" />
-    <PackageReference Include="Rsk.Saml.DuendeIdentityServer.EntityFramework" Version="7.2.2" />
+    <PackageReference Include="Rsk.Saml.DuendeIdentityServer" Version="8.0.0" />
+    <PackageReference Include="Rsk.Saml.DuendeIdentityServer.EntityFramework" Version="8.0.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="7.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.25" />
     <PackageReference Include="Serilog.Settings.Configuration" Version="7.0.1" />
