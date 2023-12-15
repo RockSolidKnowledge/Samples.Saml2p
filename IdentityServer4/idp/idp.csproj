@@ -10,8 +10,8 @@
 
   <ItemGroup>
     <PackageReference Include="IdentityServer4" Version="4.1.2" />
-    <PackageReference Include="Rsk.Saml" Version="5.0.0" />
-    <PackageReference Include="Rsk.Saml.IdentityServer4" Version="5.0.0" />
+    <PackageReference Include="Rsk.Saml" Version="5.4.1" />
+    <PackageReference Include="Rsk.Saml.IdentityServer4" Version="5.3.1" />
 
     <PackageReference Include="Serilog" Version="2.9.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="3.2.0" />

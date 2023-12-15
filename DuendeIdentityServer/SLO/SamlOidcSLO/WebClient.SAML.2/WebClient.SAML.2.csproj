@@ -1,23 +1,22 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>WebClient</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\..\..\..\LicenseKey.cs" Link="LicenseKey.cs" />
+<Compile Include="..\..\..\..\LicenseKey.cs" Link="LicenseKey.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="6.0.1" />
-    <PackageReference Include="Rsk.Saml" Version="6.0.0-preview1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="6.0.25"/>
+<PackageReference Include="Rsk.Saml" Version="8.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="testclient.pfx">
+  <ItemGroup>    <None Update="testclient.pfx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

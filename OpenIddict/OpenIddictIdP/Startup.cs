@@ -11,9 +11,9 @@ using Quartz;
 using Rsk.Saml.Configuration;
 using Rsk.Saml.OpenIddict.AspNetCore.Identity.Configuration.DependencyInjection;
 using Rsk.Saml.OpenIddict.Configuration.DependencyInjection;
-using Rsk.Saml.OpenIddict.EntityFrameworkCore.Configuration.DependacyInjection;
 using openiddictidp.Data;
 using Rsk.Saml.Samples;
+using Rsk.Saml.OpenIddict.EntityFrameworkCore.Configuration.DependencyInjection;
 using static OpenIddict.Abstractions.OpenIddictConstants;
 
 namespace openiddictidp;
@@ -120,20 +120,15 @@ public class Startup
                 {
                     //use quartz to prune old SAML messages every 14 days.
                     builder.PruneSamlMessages();
+                    builder.PruneSamlArtifacts();
                     
                     //Already added the DbContext above
                     builder.UseSamlEntityFrameworkCore()
-                        .AddSamlMessageDbContext(optionsBuilder =>
-                        {
-                            //Configure the database provider to use.
-                            optionsBuilder.UseSqlServer(defaultConnectionString, x =>x.MigrationsAssembly(typeof(Startup).Assembly.FullName));
-                        })
-                        .AddSamlConfigurationDbContext(optionsBuilder =>
-                        {
-                            //Configure the database provider to use.
-                            optionsBuilder.UseSqlServer(defaultConnectionString,
-                                x => x.MigrationsAssembly(typeof(Startup).Assembly.FullName));
-                        });
+                        .AddSamlDbContexts(optionsBuilder =>
+                    {
+                        //Configure the database provider to use.
+                        optionsBuilder.UseSqlServer(defaultConnectionString, x => x.MigrationsAssembly(typeof(Startup).Assembly.FullName));
+                    });
 
                     builder.ConfigureSamlOpenIddictServerOptions(serverOptions =>
                         {
