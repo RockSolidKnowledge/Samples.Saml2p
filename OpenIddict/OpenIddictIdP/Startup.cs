@@ -11,8 +11,8 @@ using Quartz;
 using Rsk.Saml.Configuration;
 using Rsk.Saml.OpenIddict.AspNetCore.Identity.Configuration.DependencyInjection;
 using Rsk.Saml.OpenIddict.Configuration.DependencyInjection;
-using Rsk.Saml.OpenIddict.EntityFrameworkCore.Configuration.DependacyInjection;
 using openiddictidp.Data;
+using Rsk.Saml.OpenIddict.EntityFrameworkCore.Configuration.DependencyInjection;
 using Rsk.Saml.Samples;
 using static OpenIddict.Abstractions.OpenIddictConstants;
 
@@ -61,7 +61,6 @@ public class Startup
         // (like pruning orphaned authorizations/tokens from the database) at regular intervals.
         services.AddQuartz(options =>
         {
-            options.UseMicrosoftDependencyInjectionJobFactory();
             options.UseSimpleTypeLoader();
             options.UseInMemoryStore();
         });
