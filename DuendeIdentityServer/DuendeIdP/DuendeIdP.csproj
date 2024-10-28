@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Duende.IdentityServer" Version="7.0.0" />
+    <PackageReference Include="Duende.IdentityServer" Version="7.0.8" />
     <PackageReference Include="Rsk.Saml" Version="9.0.0" />
     <PackageReference Include="Rsk.Saml.DuendeIdentityServer" Version="9.0.0" />
     
