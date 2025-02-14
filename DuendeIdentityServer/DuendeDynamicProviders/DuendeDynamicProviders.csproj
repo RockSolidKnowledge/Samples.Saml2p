@@ -7,9 +7,9 @@
     <Compile Include="..\..\LicenseKey.cs" Link="LicenseKey.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Duende.IdentityServer" Version="7.0.0" />
-    <PackageReference Include="Rsk.Saml" Version="9.0.0" />
-    <PackageReference Include="Rsk.Saml.DuendeIdentityServer" Version="9.0.0" />
+    <PackageReference Include="Duende.IdentityServer" Version="7.1.0" />
+    <PackageReference Include="Rsk.Saml" Version="10.0.0" />
+    <PackageReference Include="Rsk.Saml.DuendeIdentityServer" Version="10.0.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
   </ItemGroup>
   <ItemGroup>
