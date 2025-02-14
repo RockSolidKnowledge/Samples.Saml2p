@@ -7,7 +7,7 @@
     <Compile Include="..\..\LicenseKey.cs" Link="LicenseKey.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Rsk.Saml.OpenIddict.AspNetCore.Identity" Version="9.0.0" />
+    <PackageReference Include="Rsk.Saml.OpenIddict.AspNetCore.Identity" Version="10.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.1" />
@@ -18,11 +18,11 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="OpenIddict.Quartz" Version="5.1.0" />
+    <PackageReference Include="OpenIddict.Quartz" Version="6.0.0" />
     <PackageReference Include="Quartz.Extensions.Hosting" Version="3.8.0" />
-    <PackageReference Include="Rsk.Saml.OpenIddict" Version="9.0.0" />
-    <PackageReference Include="Rsk.Saml.OpenIddict.EntityFrameworkCore" Version="9.0.0" />
-    <PackageReference Include="Rsk.Saml.OpenIddict.Quartz" Version="9.0.0" />
+    <PackageReference Include="Rsk.Saml.OpenIddict" Version="10.0.0" />
+    <PackageReference Include="Rsk.Saml.OpenIddict.EntityFrameworkCore" Version="10.0.0" />
+    <PackageReference Include="Rsk.Saml.OpenIddict.Quartz" Version="10.0.0" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Resources\idsrv3test.cer">
