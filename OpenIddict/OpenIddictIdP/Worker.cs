@@ -154,7 +154,7 @@ public class Worker : IHostedService
             ocd.Permissions.UnionWith(new[]
             {
                 Permissions.Endpoints.Authorization,
-                Permissions.Endpoints.Logout,
+                Permissions.Endpoints.EndSession,
                 Permissions.Endpoints.Token,
                 Permissions.GrantTypes.AuthorizationCode,
                 Permissions.ResponseTypes.Code,

@@ -1,5 +1,4 @@
 using Rsk.Saml.OpenIddict.Quartz.Configuration.DependencyInjection;
-using IdentityModel;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -15,6 +14,7 @@ using openiddictidp.Data;
 using Rsk.Saml.OpenIddict.EntityFrameworkCore.Configuration.DependencyInjection;
 using Rsk.Saml.Samples;
 using static OpenIddict.Abstractions.OpenIddictConstants;
+using Microsoft.Extensions.Options;
 
 namespace openiddictidp;
 
@@ -92,9 +92,9 @@ public class Startup
 
                 // Enable the authorization, logout, token and userinfo endpoints.
                 options.SetAuthorizationEndpointUris("connect/authorize")
-                       .SetLogoutEndpointUris("connect/logout")
+                       .SetEndSessionEndpointUris("connect/logout")
                        .SetTokenEndpointUris("connect/token")
-                       .SetUserinfoEndpointUris("connect/userinfo");
+                       .SetUserInfoEndpointUris("connect/userinfo");
 
                 // Mark the "email", "profile" and "roles" scopes as supported scopes.
                 options.RegisterScopes(Scopes.Email, Scopes.Profile, Scopes.Roles);
@@ -110,9 +110,9 @@ public class Startup
                 // Register the ASP.NET Core host and configure the ASP.NET Core-specific options.
                 options.UseAspNetCore()
                     .EnableAuthorizationEndpointPassthrough()
-                       .EnableLogoutEndpointPassthrough()
+                       .EnableEndSessionEndpointPassthrough()
                        .EnableTokenEndpointPassthrough()
-                       .EnableUserinfoEndpointPassthrough()
+                       .EnableUserInfoEndpointPassthrough()
                        .EnableStatusCodePagesIntegration();
 
                 options.AddSamlPlugin(builder =>
@@ -122,18 +122,9 @@ public class Startup
                     
                     //Already added the DbContext above
                     builder.UseSamlEntityFrameworkCore()
-                        .AddSamlMessageDbContext(optionsBuilder =>
-                        {
-                            //Configure the database provider to use.
-                            optionsBuilder.UseSqlServer(defaultConnectionString, x =>x.MigrationsAssembly(typeof(Startup).Assembly.FullName));
-                        })
-                        .AddSamlConfigurationDbContext(optionsBuilder =>
-                        {
-                            //Configure the database provider to use.
-                            optionsBuilder.UseSqlServer(defaultConnectionString,
-                                x => x.MigrationsAssembly(typeof(Startup).Assembly.FullName));
-                        });
-
+                        .AddSamlDbContexts(optionsBuilder => optionsBuilder.UseSqlServer(defaultConnectionString,
+                            x => x.MigrationsAssembly(typeof(Startup).Assembly.FullName)));
+                        
                     builder.ConfigureSamlOpenIddictServerOptions(serverOptions =>
                         {
                             serverOptions.HostOptions = new SamlHostUserInteractionOptions()
