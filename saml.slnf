@@ -1,0 +1,17 @@
+{
+  "solution": {
+    "path": "Saml.sln",
+    "projects": [
+      "DuendeIdentityServer\\DuendeDynamicProviders\\DuendeDynamicProviders.csproj",
+      "DuendeIdentityServer\\DuendeIdP\\DuendeIdP.csproj",
+      "DuendeIdentityServer\\SLO\\SamlOidcSLO\\IdentityServer\\IdentityServer.csproj",
+      "DuendeIdentityServer\\SLO\\SamlOidcSLO\\WebClient.OIDC\\WebClient.OIDC.csproj",
+      "DuendeIdentityServer\\SLO\\SamlOidcSLO\\WebClient.SAML.1\\WebClient.SAML.1.csproj",
+      "DuendeIdentityServer\\SLO\\SamlOidcSLO\\WebClient.SAML.2\\WebClient.SAML.2.csproj",
+      "OpenIddict\\OpenIddictIdP\\OpenIddictIdP.csproj",
+      "spWithIdpInitiated\\spWithIdpInitiated.csproj",
+      "spWithMultipleIdps\\spWithMultipleIdps.csproj",
+      "spWithSingleIdp\\spWithSingleIdp.csproj"
+    ]
+  }
+}
