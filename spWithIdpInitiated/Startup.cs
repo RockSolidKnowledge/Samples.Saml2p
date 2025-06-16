@@ -3,6 +3,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Rsk.AspNetCore.Authentication.Saml2p;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
 using Rsk.Saml.Samples;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,14 +17,8 @@ builder.Services.AddAuthentication()
     .AddSaml2p("saml2p", options => {
         options.Licensee = LicenseKey.Licensee;
         options.LicenseKey = LicenseKey.Key;
-
-        options.IdentityProviderOptions = new IdpOptions
-        {
-            EntityId = "https://localhost:5000",
-            SigningCertificates = new List<X509Certificate2> { new X509Certificate2("idsrv3test.cer") },
-            SingleSignOnEndpoint = new SamlEndpoint("https://localhost:5000/saml/sso", SamlBindingTypes.HttpRedirect),
-            SingleLogoutEndpoint = new SamlEndpoint("https://localhost:5000/saml/slo", SamlBindingTypes.HttpRedirect),
-        };
+        
+        options.IdentityProviderMetadataAddress = "https://localhost:5003/saml/metadata";
 
         options.ServiceProviderOptions = new SpOptions
         {
@@ -38,6 +34,22 @@ builder.Services.AddAuthentication()
         // IdP-Initiated SSO
         options.AllowIdpInitiatedSso = true;
         options.IdPInitiatedSsoCompletionPath = "/";
+
+        options.AllowedIdpInitiatedRelayStates = new List<string>()
+        {
+            "https://localhost:5001/relay/state/url"
+        };
+        
+        options.Events = new RemoteAuthenticationEvents()
+        {
+            OnTicketReceived = context =>
+            {
+                context.Properties.Items.TryGetValue("RelayState", out var relayStateValue);
+                // do something with relayStateValue
+
+                return Task.FromResult(0);
+            }
+        };
     });
 
 var app = builder.Build();

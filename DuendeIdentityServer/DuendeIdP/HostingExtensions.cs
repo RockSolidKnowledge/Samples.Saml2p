@@ -11,6 +11,7 @@ internal static class HostingExtensions
 {
     public static WebApplication ConfigureServices(this WebApplicationBuilder builder)
     {
+        builder.Services.AddControllers();
         builder.Services.AddRazorPages();
 
         var isBuilder = builder.Services.AddIdentityServer(options =>
@@ -64,6 +65,8 @@ internal static class HostingExtensions
             .UseIdentityServerSamlPlugin(); // enables SAML endpoints (e.g. ACS and SLO)
 
         app.UseAuthorization();
+        
+        app.UseEndpoints(endpoints => endpoints.MapDefaultControllerRoute());
         
         app.MapRazorPages()
             .RequireAuthorization();

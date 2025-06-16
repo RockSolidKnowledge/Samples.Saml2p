@@ -1,0 +1,41 @@
+@page
+@model DuendeIdP.Pages.IdpInitiated.Index
+
+<div class="idp-initiated-page">
+    <div class="lead">
+        <h1>Available Service Providers for Idp-Initiated login</h1>
+    </div>
+
+    @if (Model.View.serviceProviders.Any() == false)
+    {
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="alert alert-info">
+                    There are no Service Providers available for Idp-Initiated login
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        foreach (var sp in Model.View.serviceProviders)
+        {
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-sm-8 card-title">
+                            <strong>@sp.EntityId</strong>
+                        </div>
+
+                        <div class="col-sm-2">
+                            <form method="post" asp-controller="SpSsoLogin" asp-action="ExecuteSpSso">
+                                <input name="serviceProviderId" value="@sp.EntityId" hidden/>
+                                <button class="btn btn-success" type="submit">Log on</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>

@@ -44,6 +44,13 @@ public static class Config
                 ClientName = "RSK SAML2P Test Client - Multiple SP",
                 ProtocolType = IdentityServerConstants.ProtocolTypes.Saml2p,
                 AllowedScopes = {"openid", "profile"}
+            },
+            new Client
+            {
+                ClientId = "https://localhost:5001/saml",
+                ClientName = "RSK SAML2P Test Client - IDP Initiated",
+                ProtocolType = IdentityServerConstants.ProtocolTypes.Saml2p,
+                AllowedScopes = {"openid", "profile"}
             }
         };
     }
@@ -64,6 +71,19 @@ public static class Config
                 {
                     new Service(SamlConstants.BindingTypes.HttpRedirect , "https://localhost:5002/saml/slo")
                 }
+            },
+            new ServiceProvider
+            {
+                EntityId = "https://localhost:5001/saml",
+                AssertionConsumerServices =
+                {
+                    new Service(SamlConstants.BindingTypes.HttpPost , "https://localhost:5001/signin-saml")
+                },
+                SingleLogoutServices =
+                {
+                    new Service(SamlConstants.BindingTypes.HttpRedirect , "https://localhost:5001/saml/slo")
+                },
+                AllowIdpInitiatedSso = true,
             }
         };
     }
