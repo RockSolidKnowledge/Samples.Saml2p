@@ -6,6 +6,8 @@ using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Rsk.Saml.Samples;
+using Rsk.Saml.Samples.Services;
+using Rsk.Saml.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,11 +36,6 @@ builder.Services.AddAuthentication()
         // IdP-Initiated SSO
         options.AllowIdpInitiatedSso = true;
         options.IdPInitiatedSsoCompletionPath = "/";
-
-        options.AllowedIdpInitiatedRelayStates = new List<string>()
-        {
-            "https://localhost:5001/relay/state/url"
-        };
         
         options.Events = new RemoteAuthenticationEvents()
         {
@@ -51,6 +48,8 @@ builder.Services.AddAuthentication()
             }
         };
     });
+
+builder.Services.AddScoped<ISamlRelayStateValidator, CustomSamlRelayStateValidator>();
 
 var app = builder.Build();
 
