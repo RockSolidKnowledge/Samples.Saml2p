@@ -13,6 +13,7 @@ internal static class HostingExtensions
 {
     public static WebApplication ConfigureServices(this WebApplicationBuilder builder)
     {
+        builder.Services.AddControllers();
         builder.Services.AddRazorPages();
 
         var isBuilder = builder.Services.AddIdentityServer(options =>
@@ -64,7 +65,9 @@ internal static class HostingExtensions
                             CallbackPath = "/federation/saml/signin-saml", // Duende prefixes "/federation/{scheme}" to all paths
                             SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme,
                             
-                            AllowIdpInitiatedSso = true
+                            AllowIdpInitiatedSso = true,
+                            
+                            IdPInitiatedSsoCompletionPath = "/IdpInitiatedCompleted/RedirectToRelayState"
                         },
 
                         Scheme = "saml",
@@ -90,6 +93,8 @@ internal static class HostingExtensions
         app.UseRouting();
         app.UseIdentityServer();
         app.UseAuthorization();
+        
+        app.UseEndpoints(endpoints => endpoints.MapDefaultControllerRoute());
         
         app.MapRazorPages()
             .RequireAuthorization();
