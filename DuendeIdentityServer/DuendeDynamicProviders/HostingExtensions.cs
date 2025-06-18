@@ -1,8 +1,10 @@
 using System.Security.Cryptography.X509Certificates;
 using Duende.IdentityServer;
+using DuendeDynamicProviders.Services;
 using Rsk.AspNetCore.Authentication.Saml2p;
 using Rsk.Saml.DuendeIdentityServer.DynamicProviders;
 using Rsk.Saml.Samples;
+using Rsk.Saml.Services;
 using Serilog;
 
 namespace DuendeDynamicProviders;
@@ -48,14 +50,7 @@ internal static class HostingExtensions
                     {
                         SamlAuthenticationOptions = new Saml2pAuthenticationOptions
                         {
-                            // The IdP you want to integrate with
-                            IdentityProviderOptions = new IdpOptions
-                            {
-                                EntityId = "https://localhost:5000",
-                                SigningCertificates = { new X509Certificate2("idsrv3test.cer") },
-                                SingleSignOnEndpoint = new SamlEndpoint("https://localhost:5000/saml/sso", SamlBindingTypes.HttpRedirect),
-                                SingleLogoutEndpoint = new SamlEndpoint("https://localhost:5000/saml/slo", SamlBindingTypes.HttpRedirect)
-                            },
+                            IdentityProviderMetadataAddress = "https://localhost:5003/saml/metadata",
 
                             // Details about yourself (the SP)
                             ServiceProviderOptions = new SpOptions
@@ -68,6 +63,8 @@ internal static class HostingExtensions
                             NameIdClaimType = "sub",
                             CallbackPath = "/federation/saml/signin-saml", // Duende prefixes "/federation/{scheme}" to all paths
                             SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme,
+                            
+                            AllowIdpInitiatedSso = true
                         },
 
                         Scheme = "saml",
@@ -77,6 +74,8 @@ internal static class HostingExtensions
             });
 
         builder.Services.AddAuthentication();
+        
+        builder.Services.AddScoped<ISamlRelayStateValidator, CustomSamlRelayStateValidator>();
 
         return builder.Build();
     }
