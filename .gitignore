@@ -287,3 +287,4 @@ __pycache__/
 *.xsd.cs
 
 **/identityserver4_log.txt
+**/openiddict-identity.db

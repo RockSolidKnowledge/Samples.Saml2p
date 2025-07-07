@@ -5,24 +5,24 @@
     <UserSecretsId>38ced442-cf32-4289-bb08-57d4a78831b3</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="AspNetCore.ReCaptcha" Version="1.8.1" />
+    <PackageReference Include="AspNetCore.ReCaptcha" Version="1.8.2" />
     <PackageReference Include="Duende.IdentityServer.EntityFramework" Version="7.1.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.WsFederation" Version="8.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.DataProtection" Version="8.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.DataProtection.EntityFrameworkCore" Version="8.0.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Caching.SqlServer" Version="8.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="8.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.WsFederation" Version="8.0.17" />
+    <PackageReference Include="Microsoft.AspNetCore.DataProtection" Version="8.0.17" />
+    <PackageReference Include="Microsoft.AspNetCore.DataProtection.EntityFrameworkCore" Version="8.0.17" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.17" />
+    <PackageReference Include="Microsoft.Extensions.Caching.SqlServer" Version="8.0.17" />
+    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="8.0.17" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="3.21.130" />
+    <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="3.21.190" />
     <PackageReference Include="Rsk.Saml.DuendeIdentityServer" Version="10.0.0" />
     <PackageReference Include="Rsk.Saml.DuendeIdentityServer.EntityFramework" Version="10.0.0" />
-    <PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.1" />
-    <PackageReference Include="Serilog.Settings.Configuration" Version="8.0.0" />
-    <PackageReference Include="Serilog.Sinks.MSSqlServer" Version="6.5.1" />
-    <PackageReference Include="System.ServiceModel.Http" Version="8.0.0" />
-    <PackageReference Include="System.ServiceModel.Primitives" Version="8.0.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.17" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="9.0.0" />
+    <PackageReference Include="Serilog.Sinks.MSSqlServer" Version="8.2.1" />
+    <PackageReference Include="System.ServiceModel.Http" Version="8.1.2" />
+    <PackageReference Include="System.ServiceModel.Primitives" Version="8.1.2" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Resources\testclient.cer">

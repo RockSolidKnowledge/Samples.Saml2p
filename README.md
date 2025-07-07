@@ -28,13 +28,14 @@ The [master](https://github.com/RockSolidKnowledge/Samples.IdentityServer4.Saml2
 If you are using IdentityServer and would like a demo license, please sign up on our [products page](	https://www.identityserver.com/products/saml2p). Alternative for a demo license using OpenIddict use [this](https://www.openiddictcomponents.com/products/saml2p) link. You can also reach out to <sales@identityserver.com>.
 
 
-#Launch urls
+## Launch urls
 The launch urls for the sample projects are as follows:
+
 |Project|Launch Url|
 |---|---|
 |duende.idp|https://localhost:5003|
 |OpenIddict.Idp|https://localhost:55031|
 |Duende Dynamic providers|https://localhost:5004|
 |SPWithIdpInitiated|https://localhost:5001|
-|SpWithMultipleIds|http/s://localhost:5002|
+|SpWithMultipleIds|https://localhost:5002|
 |SpWithSingleIdp|https://localhost:5002|
