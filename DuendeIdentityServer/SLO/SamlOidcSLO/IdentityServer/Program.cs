@@ -9,7 +9,7 @@ Log.Information("Starting up");
 
 try
 {
-    var builder = WebApplication.CreateBuilder(args);
+    WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
     builder.Host.UseSerilog((ctx, lc) => lc
         .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}")
@@ -20,13 +20,16 @@ try
             logging.SetMinimumLevel(LogLevel.Debug);
             logging.ClearProviders();
             logging.AddSimpleConsole(options => options.IncludeScopes = true);
-            logging.AddEventLog();
+            if (OperatingSystem.IsWindows())
+            {
+                logging.AddEventLog();
+            }
         });
-    var app = builder
+    WebApplication app = builder
         .ConfigureServices()
         .ConfigurePipeline();
     
-    app.Run();
+    await app.RunAsync();
 }
 catch (Exception ex)
 {
@@ -35,5 +38,5 @@ catch (Exception ex)
 finally
 {
     Log.Information("Shut down complete");
-    Log.CloseAndFlush();
+    await Log.CloseAndFlushAsync();
 }

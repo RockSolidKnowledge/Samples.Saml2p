@@ -145,7 +145,7 @@ namespace Host.Quickstart.Account
         {
             // see if windows auth has already been requested and succeeded
             var result = await HttpContext.AuthenticateAsync(AccountOptions.WindowsAuthenticationSchemeName);
-            if (result?.Principal is WindowsPrincipal wp)
+            if (OperatingSystem.IsWindows() && result?.Principal is WindowsPrincipal wp)
             {
                 // we will issue the external cookie and then redirect the
                 // user back to the external callback, in essence, tresting windows

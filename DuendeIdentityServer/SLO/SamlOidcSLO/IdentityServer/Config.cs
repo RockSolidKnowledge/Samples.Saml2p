@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography.X509Certificates;
+using Duende.IdentityModel;
 using Duende.IdentityServer;
 using Duende.IdentityServer.Models;
-using IdentityModel;
 using Rsk.Saml;
 using Rsk.Saml.Models;
 using ServiceProvider = Rsk.Saml.Models.ServiceProvider;

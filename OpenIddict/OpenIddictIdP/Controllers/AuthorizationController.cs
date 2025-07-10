@@ -62,13 +62,13 @@ public class AuthorizationController : Controller
         //  - If prompt=login was specified by the client application.
         //  - If a max_age parameter was provided and the authentication cookie is not considered "fresh" enough.
         var result = await HttpContext.AuthenticateAsync(IdentityConstants.ApplicationScheme);
-        if (result == null || !result.Succeeded || request.HasPrompt(Prompts.Login) ||
+        if (result == null || !result.Succeeded || request.HasPromptValue(PromptValues.Login) ||
            request.MaxAge != null && result.Properties?.IssuedUtc != null &&
             DateTimeOffset.UtcNow - result.Properties.IssuedUtc > TimeSpan.FromSeconds(request.MaxAge.Value))
         {
             // If the client application requested promptless authentication,
             // return an error indicating that the user is not logged in.
-            if (request.HasPrompt(Prompts.None))
+            if (request.HasPromptValue(PromptValues.None))
             {
                 return Forbid(
                     authenticationSchemes: OpenIddictServerAspNetCoreDefaults.AuthenticationScheme,
@@ -81,7 +81,7 @@ public class AuthorizationController : Controller
 
             // To avoid endless login -> authorization redirects, the prompt=login flag
             // is removed from the authorization request payload before redirecting the user.
-            var prompt = string.Join(" ", request.GetPrompts().Remove(Prompts.Login));
+            var prompt = string.Join(" ", request.GetPromptValues().Remove(PromptValues.Login));
 
             var parameters = Request.HasFormContentType ?
                 Request.Form.Where(parameter => parameter.Key != Parameters.Prompt).ToList() :
@@ -142,7 +142,7 @@ public class AuthorizationController : Controller
             // return an authorization response without displaying the consent form.
             case ConsentTypes.Implicit:
             case ConsentTypes.External when authorizations.Any():
-            case ConsentTypes.Explicit when authorizations.Any() && !request.HasPrompt(Prompts.Consent):
+            case ConsentTypes.Explicit when authorizations.Any() && !request.HasPromptValue(PromptValues.Consent):
                 // Create the claims-based identity that will be used by OpenIddict to generate tokens.
                 var identity = new ClaimsIdentity(
                         authenticationType: TokenValidationParameters.DefaultAuthenticationType,
@@ -178,8 +178,8 @@ public class AuthorizationController : Controller
 
             // At this point, no authorization was found in the database and an error must be returned
             // if the client application specified prompt=none in the authorization request.
-            case ConsentTypes.Explicit when request.HasPrompt(Prompts.None):
-            case ConsentTypes.Systematic when request.HasPrompt(Prompts.None):
+            case ConsentTypes.Explicit when request.HasPromptValue(PromptValues.None):
+            case ConsentTypes.Systematic when request.HasPromptValue(PromptValues.None):
                 return Forbid(
                     authenticationSchemes: OpenIddictServerAspNetCoreDefaults.AuthenticationScheme,
                     properties: new AuthenticationProperties(new Dictionary<string, string>

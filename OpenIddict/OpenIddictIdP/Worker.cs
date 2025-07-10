@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,55 +12,60 @@ using Rsk.Saml.Models;
 using Rsk.Saml.OpenIddict.EntityFrameworkCore.DbContexts;
 using openiddictidp.Data;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Linq;
 using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Data.Sqlite;
 using static OpenIddict.Abstractions.OpenIddictConstants;
 using ServiceProvider = Rsk.Saml.Models.ServiceProvider;
+using Microsoft.Data.SqlClient;
+using MySqlConnector;
+using Npgsql;
 
 namespace openiddictidp;
 
-public class Worker : IHostedService
+public class Worker(IServiceProvider serviceProvider, IConfiguration configuration) : IHostedService
 {
-    private readonly IServiceProvider _serviceProvider;
-
-    public Worker(IServiceProvider serviceProvider)
-        => _serviceProvider = serviceProvider;
+    private DbProvider dbProvider;
 
     public async Task StartAsync(CancellationToken cancellationToken)
     {
-        await using var scope = _serviceProvider.CreateAsyncScope();
+        dbProvider = configuration.GetValue<DbProvider>("DbProvider");
+
+        await using AsyncServiceScope scope = serviceProvider.CreateAsyncScope();
         await EnsureAllDatabasesAreCreated(scope);
         await CreateMvcClientIfNotExists(scope);
         await CreateSamlClientIfNotExists(scope);
         await CreateFakeUserBobIfNotExists(scope);
         await CreateEmailScopeIfNotExists(scope);
-        await CreateSamlServiceProviderWithArtifactBindingIfNotExists(scope, "https://localhost:5001/saml/artifact", x =>
-        {
-            x.EntityId = "https://localhost:5001/saml/artifact";
-            x.EncryptAssertions = false;
-            x.AssertionConsumerServices.Add(new Service(SamlConstants.BindingTypes.HttpArtifact,
-                "https://localhost:5001/signin-saml-openIddict-artifact"));
-            x.SingleLogoutServices.Add(new Service(SamlConstants.BindingTypes.HttpRedirect,
-                "https://localhost:5001/signout-saml-artifasct"));
-            x.ArtifactResolutionServices.Add(new Service(SamlConstants.BindingTypes.Soap, "https://localhost:5001/ars-saml"));
-            x.SigningCertificates = new List<X509Certificate2> { new("Resources/testclient.cer") };
-            x.EncryptionCertificate = new X509Certificate2("Resources/idsrv3test.cer");
-        });
+        await CreateServiceProviderIfNotExists(scope, "https://localhost:5001/saml/artifact",
+            x =>
+            {
+                x.EntityId = "https://localhost:5001/saml/artifact";
+                x.EncryptAssertions = false;
+                x.AssertionConsumerServices.Add(new Service(SamlConstants.BindingTypes.HttpArtifact,
+                    "https://localhost:5001/signin-saml-openIddict-artifact"));
+                x.SingleLogoutServices.Add(new Service(SamlConstants.BindingTypes.HttpRedirect,
+                    "https://localhost:5001/signout-saml-artifasct"));
+                x.ArtifactResolutionServices.Add(new Service(SamlConstants.BindingTypes.Soap,
+                    "https://localhost:5001/ars-saml"));
+                x.SigningCertificates = [new X509Certificate2("Resources/testclient.cer")];
+                x.EncryptionCertificate = new X509Certificate2("Resources/idsrv3test.cer");
+            });
         await CreateServiceProviderIfNotExists(scope, "https://localhost:5001/saml", x =>
         {
             x.EntityId = "https://localhost:5001/saml";
             x.EncryptAssertions = false;
             x.AllowIdpInitiatedSso = true;
-            x.AssertionConsumerServices.Add(new Service(SamlConstants.BindingTypes.HttpPost, "https://localhost:5001/signin-saml-openIddict"));
-            x.SingleLogoutServices.Add(new Service(SamlConstants.BindingTypes.HttpRedirect, "https://localhost:5001/signout-saml"));
-            x.SigningCertificates = new List<X509Certificate2> { new("Resources/testclient.cer") };
+            x.AssertionConsumerServices.Add(new Service(SamlConstants.BindingTypes.HttpPost,
+                "https://localhost:5001/signin-saml-openIddict"));
+            x.SingleLogoutServices.Add(new Service(SamlConstants.BindingTypes.HttpRedirect,
+                "https://localhost:5001/signout-saml"));
+            x.SigningCertificates = [new X509Certificate2("Resources/testclient.cer")];
             x.EncryptionCertificate = new X509Certificate2("Resources/idsrv3test.cer");
         });
         await SaveAllChanges(scope);
@@ -71,136 +75,126 @@ public class Worker : IHostedService
 
     private async Task EnsureAllDatabasesAreCreated(IServiceScope scope)
     {
-        //Create the database backed by the ApplicationDbContext.
+        // Apply migrations for the ApplicationDbContext.
         var applicationDbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-        await applicationDbContext.Database.EnsureCreatedAsync();
+        await applicationDbContext.Database.MigrateAsync();
 
-        //Create the database backed by the OpenIddictSamlMessageDbContext.
+        // Apply migrations for the OpenIddictSamlMessageDbContext.
         var samlOpenIddictMessageContext = scope.ServiceProvider.GetRequiredService<OpenIddictSamlMessageDbContext>();
-        await samlOpenIddictMessageContext.Database.EnsureCreatedAsync();
+        await samlOpenIddictMessageContext.Database.MigrateAsync();
 
-        //Create the database backed by the SamlConfigurationContext.
+        // Apply migrations for the SamlConfigurationDbContext.
         var samlConfigurationContext = scope.ServiceProvider.GetRequiredService<SamlConfigurationDbContext>();
-        await samlConfigurationContext.Database.EnsureCreatedAsync();
+        await samlConfigurationContext.Database.MigrateAsync();
+
         //Create the database used by the quartz scheduler.
-        await CreateTheQuartzDatabase(scope);
+        await CreateQuartzDatabase(scope);
     }
 
-    private async Task CreateTheQuartzDatabase(IServiceScope scope)
+    private async Task CreateQuartzDatabase(IServiceScope scope)
     {
-        var quartzDatabaseDownloadUrlTemplate ="https://github.com/quartznet/quartznet/blob/main/database/tables/tables_{0}.sql";
-        string quartzDatabaseDownloadUrl = null;
-        quartzDatabaseDownloadUrl = String.Format(quartzDatabaseDownloadUrlTemplate, "sqlServer");
-        
-        var quartzDatabaseSql =await DownloadQuartzDatabaseSql(scope, quartzDatabaseDownloadUrl);
-        
+        const string quartzDatabaseDownloadUrlTemplate = "https://raw.githubusercontent.com/quartznet/quartznet/refs/heads/main/database/tables/tables_{0}.sql";
+        string quartzDatabaseDownloadUrl = string.Format(quartzDatabaseDownloadUrlTemplate, GetDbNameForQuartzTablesSqlUrl());
+        string quartzDatabaseSql = await DownloadQuartzDatabaseSql(scope, quartzDatabaseDownloadUrl);
         await InitializeQuartzDatabase(scope, quartzDatabaseSql);
     }
+
+    private string GetDbNameForQuartzTablesSqlUrl() => dbProvider switch
+    {
+        DbProvider.SqlServer => "sqlServer",
+        DbProvider.MySql => "mysql_innodb",
+        DbProvider.PostgreSql => "postgres",
+        DbProvider.Sqlite => "sqlite",
+        _ => throw new NotSupportedException($"The database provider {dbProvider} is not supported.")
+    };
 
     private static async Task<string> DownloadQuartzDatabaseSql(IServiceScope scope, string quartzDatabaseDownloadUrl)
     {
         var clientFactory = scope.ServiceProvider.GetRequiredService<IHttpClientFactory>();
-        using var client = clientFactory.CreateClient();
+        using HttpClient client = clientFactory.CreateClient();
         return await client.GetStringAsync(quartzDatabaseDownloadUrl);
     }
 
     private async Task InitializeQuartzDatabase(IServiceScope scope, string quartzDatabaseSql)
     {
-        var quartzDatabaseCommands =GetQuartzDatabaseCommands(quartzDatabaseSql);
-        var connection =GetDbConnection(scope);
-        var command = connection.CreateCommand();
-        command.CommandType= CommandType.Text;
+        using DbConnection connection = GetDbConnection(scope);
+        using DbCommand command = connection.CreateCommand();
+        command.CommandType = CommandType.Text;
         await connection.OpenAsync();
-        foreach (var quartzDatabaseCommand in quartzDatabaseCommands)
-        {
-            command.CommandText = quartzDatabaseCommand;
-            await command.ExecuteNonQueryAsync();
-        }
-
-        await connection.DisposeAsync();
-    }
-
-    private static IList<string> GetQuartzDatabaseCommands(string quartzDatabaseSql)
-    {
-        var databaseDelimiter = GetDatabaseDelimiter();
-        return quartzDatabaseSql.Split(databaseDelimiter).Select(x => x.Trim()).ToList();
-    }
-
-    private static string GetDatabaseDelimiter()
-    {
-        return "GO";
+        command.CommandText = quartzDatabaseSql;
+        await command.ExecuteNonQueryAsync();
     }
     
-    private static DbConnection GetDbConnection(IServiceScope scope)
+    private DbConnection GetDbConnection(IServiceScope scope)
     {
         var configuration = scope.ServiceProvider.GetRequiredService<IConfiguration>();
-        var connectionString = configuration.GetConnectionString("DefaultConnection");
-        DbConnection connection = null;
-        connection = new SqlConnection(connectionString);
-        return connection;
-    }
-
-    private Task CreateMvcClientIfNotExists(IServiceScope scope)
-    {
-        return CreateClientIfNotExists(scope, "mvc", ocd =>
+        string connectionString = configuration.GetConnectionString("DefaultConnection");
+        return dbProvider switch
         {
-            ocd.ClientId = "mvc";
-            ocd.ClientSecret = "901564A5-E7FE-42CB-B10D-61EF6A8F3654";
-            ocd.ConsentType = ConsentTypes.Explicit;
-            ocd.DisplayName = "MVC client application";
-            ocd.RedirectUris.Add(new Uri("https://localhost:44338/callback/login/local"));
-            ocd.PostLogoutRedirectUris.Add(new Uri("https://localhost:44338/callback/logout/local"));
-
-            ocd.Permissions.UnionWith(new[]
-            {
-                Permissions.Endpoints.Authorization,
-                Permissions.Endpoints.Logout,
-                Permissions.Endpoints.Token,
-                Permissions.GrantTypes.AuthorizationCode,
-                Permissions.ResponseTypes.Code,
-                Permissions.Scopes.Email,
-                Permissions.Scopes.Profile,
-                Permissions.Scopes.Roles});
-            ocd.Requirements.Add(Requirements.Features.ProofKeyForCodeExchange);
-        });
+            DbProvider.SqlServer => new SqlConnection(connectionString),
+            DbProvider.MySql => new MySqlConnection(connectionString),
+            DbProvider.PostgreSql => new NpgsqlConnection(connectionString),
+            DbProvider.Sqlite => new SqliteConnection(connectionString),
+            _ => throw new NotSupportedException($"The database provider {dbProvider} is not supported.")
+        };
     }
 
-    private Task CreateSamlClientIfNotExists(AsyncServiceScope scope)
+    private static Task CreateMvcClientIfNotExists(IServiceScope scope) => CreateClientIfNotExists(scope, "mvc", ocd =>
     {
-        return CreateClientIfNotExists(scope, "https://localhost:5001/saml", x =>
-        {
-            x.ClientId = "https://localhost:5001/saml";
-            x.Permissions.UnionWith(new[] { Permissions.Scopes.Email });
-        });
-    }
+        ocd.ClientId = "mvc";
+        ocd.ClientSecret = "901564A5-E7FE-42CB-B10D-61EF6A8F3654";
+        ocd.ConsentType = ConsentTypes.Explicit;
+        ocd.DisplayName = "MVC client application";
+        ocd.RedirectUris.Add(new Uri("https://localhost:44338/callback/login/local"));
+        ocd.PostLogoutRedirectUris.Add(new Uri("https://localhost:44338/callback/logout/local"));
 
-    private async Task CreateClientIfNotExists(IServiceScope scope, string clientId, Action<OpenIddictApplicationDescriptor> descriptorCoonfiguration)
+        ocd.Permissions.UnionWith([
+            Permissions.Endpoints.Authorization,
+            Permissions.Endpoints.EndSession,
+            Permissions.Endpoints.Token,
+            Permissions.GrantTypes.AuthorizationCode,
+            Permissions.ResponseTypes.Code,
+            Permissions.Scopes.Email,
+            Permissions.Scopes.Profile,
+            Permissions.Scopes.Roles
+        ]);
+        ocd.Requirements.Add(Requirements.Features.ProofKeyForCodeExchange);
+    });
+
+    private static Task CreateSamlClientIfNotExists(AsyncServiceScope scope) => CreateClientIfNotExists(scope, "https://localhost:5001/saml", x =>
+    {
+        x.ClientId = "https://localhost:5001/saml";
+        x.Permissions.UnionWith([Permissions.Scopes.Email]);
+    });
+
+    private static async Task CreateClientIfNotExists(IServiceScope scope, string clientId,
+        Action<OpenIddictApplicationDescriptor> descriptorCoonfiguration)
     {
         var manager = scope.ServiceProvider.GetRequiredService<IOpenIddictApplicationManager>();
         if (await manager.FindByClientIdAsync(clientId) == null)
         {
-            var newClientDescriptor = CreateAndConfigureOpenIddictApplicationDescriptor(descriptorCoonfiguration);
+            OpenIddictApplicationDescriptor newClientDescriptor =
+                CreateAndConfigureOpenIddictApplicationDescriptor(descriptorCoonfiguration);
             await manager.CreateAsync(newClientDescriptor);
         }
     }
 
-    private OpenIddictApplicationDescriptor CreateAndConfigureOpenIddictApplicationDescriptor(Action<OpenIddictApplicationDescriptor> configuration)
+    private static OpenIddictApplicationDescriptor CreateAndConfigureOpenIddictApplicationDescriptor(
+        Action<OpenIddictApplicationDescriptor> configuration)
     {
         var od = new OpenIddictApplicationDescriptor();
         configuration(od);
         return od;
     }
 
-    private Task CreateFakeUserBobIfNotExists(IServiceScope scope)
+    private static Task CreateFakeUserBobIfNotExists(IServiceScope scope) => CreateUserIfNotExists(scope, "bob@test.fake", user =>
     {
-        return CreateUserIfNotExists(scope, "bob@test.fake", user =>
-        {
-            user.UserName = "bob@test.fake";
-            user.Email = "bob@test.fake";
-        }, "Password123!");
-    }
+        user.UserName = "bob@test.fake";
+        user.Email = "bob@test.fake";
+    }, "Password123!");
 
-    private async Task CreateUserIfNotExists(IServiceScope scope, string userName, Action<ApplicationUser> userConfiguration, string userPassword)
+    private static async Task CreateUserIfNotExists(IServiceScope scope, string userName,
+        Action<ApplicationUser> userConfiguration, string userPassword)
     {
         var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
         if (await userManager.FindByNameAsync(userName) == null)
@@ -211,12 +205,12 @@ public class Worker : IHostedService
         }
     }
 
-    private Task CreateEmailScopeIfNotExists(IServiceScope scope)
+    private static Task CreateEmailScopeIfNotExists(IServiceScope scope)
     {
         var claims = new[] { "email" };
-        var serializedClaims = JsonSerializer.Serialize(claims);
-        using var jsonDocument = JsonDocument.Parse(serializedClaims);
-        var claimsElemennt = jsonDocument.RootElement.Clone();
+        string serializedClaims = JsonSerializer.Serialize(claims);
+        using JsonDocument jsonDocument = JsonDocument.Parse(serializedClaims);
+        JsonElement claimsElemennt = jsonDocument.RootElement.Clone();
         return CreateScopeIfNotExists(scope, "email", x =>
         {
             x.Name = "email";
@@ -225,7 +219,8 @@ public class Worker : IHostedService
         });
     }
 
-    private static async Task CreateScopeIfNotExists(IServiceScope scope, string scopeName, Action<OpenIddictScopeDescriptor> scopeConfiguration)
+    private static async Task CreateScopeIfNotExists(IServiceScope scope, string scopeName,
+        Action<OpenIddictScopeDescriptor> scopeConfiguration)
     {
         var scopeManager = scope.ServiceProvider.GetRequiredService<IOpenIddictScopeManager>();
         if (await scopeManager.FindByNameAsync(scopeName) == null)
@@ -237,12 +232,7 @@ public class Worker : IHostedService
         }
     }
 
-    private Task CreateSamlServiceProviderWithArtifactBindingIfNotExists(IServiceScope scope, string entityId, Action<ServiceProvider> serviceProviderConfiguration)
-    {
-        return CreateServiceProviderIfNotExists(scope, entityId, serviceProviderConfiguration);
-    }
-
-    private async Task CreateServiceProviderIfNotExists(IServiceScope scope, string entityId,
+    private static async Task CreateServiceProviderIfNotExists(IServiceScope scope, string entityId,
         Action<ServiceProvider> serviceProviderConfiguration)
     {
         var samlConfigurationDbContext = scope.ServiceProvider.GetRequiredService<ISamlConfigurationDbContext>();
@@ -255,7 +245,7 @@ public class Worker : IHostedService
         }
     }
 
-    private async Task SaveAllChanges(IServiceScope scope)
+    private static async Task SaveAllChanges(IServiceScope scope)
     {
         var applicationDbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
         await applicationDbContext.SaveChangesAsync();

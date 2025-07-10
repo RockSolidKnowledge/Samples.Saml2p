@@ -1,5 +1,6 @@
+using System;
+using System.Diagnostics;
 using Rsk.Saml.OpenIddict.Quartz.Configuration.DependencyInjection;
-using IdentityModel;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -29,11 +30,28 @@ public class Startup
     {
         services.AddControllersWithViews();
         services.AddRazorPages();
-        var defaultConnectionString = Configuration.GetConnectionString("DefaultConnection");
+        var dbProvider = Configuration.GetValue<DbProvider>("DbProvider");
+        string connectionString = Configuration.GetConnectionString("DefaultConnection");
+
         services.AddDbContext<ApplicationDbContext>(options =>
         {
-            //Configure the database provider to use.
-            options.UseSqlServer(defaultConnectionString);
+            switch (dbProvider)
+            {
+                case DbProvider.SqlServer:
+                    options.UseSqlServer(connectionString);
+                    break;
+                case DbProvider.MySql:
+                    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+                    break;
+                case DbProvider.PostgreSql:
+                    options.UseNpgsql(connectionString);
+                    break;
+                case DbProvider.Sqlite:
+                    options.UseSqlite(connectionString);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException($"{dbProvider} is not a supported database provider.");
+            }
 
             // Register the entity sets needed by OpenIddict.
             // Note: use the generic overload if you need
@@ -56,7 +74,7 @@ public class Startup
             options.ClaimsIdentity.RoleClaimType = JwtClaimTypes.Role;
             options.ClaimsIdentity.EmailClaimType = JwtClaimTypes.Email;
         });
-        
+
         // OpenIddict offers native integration with Quartz.NET to perform scheduled tasks
         // (like pruning orphaned authorizations/tokens from the database) at regular intervals.
         services.AddQuartz(options =>
@@ -76,7 +94,7 @@ public class Startup
                 // Configure OpenIddict to use the Entity Framework Core stores and models.
                 // Note: call ReplaceDefaultEntities() to replace the default OpenIddict entities.
                 options.UseEntityFrameworkCore()
-                       .UseDbContext<ApplicationDbContext>();
+                    .UseDbContext<ApplicationDbContext>();
 
                 // Enable Quartz.NET integration.
                 options.UseQuartz();
@@ -92,9 +110,9 @@ public class Startup
 
                 // Enable the authorization, logout, token and userinfo endpoints.
                 options.SetAuthorizationEndpointUris("connect/authorize")
-                       .SetLogoutEndpointUris("connect/logout")
-                       .SetTokenEndpointUris("connect/token")
-                       .SetUserinfoEndpointUris("connect/userinfo");
+                    .SetEndSessionEndpointUris("connect/logout")
+                    .SetTokenEndpointUris("connect/token")
+                    .SetUserInfoEndpointUris("connect/userinfo");
 
                 // Mark the "email", "profile" and "roles" scopes as supported scopes.
                 options.RegisterScopes(Scopes.Email, Scopes.Profile, Scopes.Roles);
@@ -105,51 +123,66 @@ public class Startup
 
                 // Register the signing and encryption credentials.
                 options.AddDevelopmentEncryptionCertificate()
-                       .AddDevelopmentSigningCertificate();
+                    .AddDevelopmentSigningCertificate();
 
                 // Register the ASP.NET Core host and configure the ASP.NET Core-specific options.
                 options.UseAspNetCore()
                     .EnableAuthorizationEndpointPassthrough()
-                       .EnableLogoutEndpointPassthrough()
-                       .EnableTokenEndpointPassthrough()
-                       .EnableUserinfoEndpointPassthrough()
-                       .EnableStatusCodePagesIntegration();
+                    .EnableEndSessionEndpointPassthrough()
+                    .EnableTokenEndpointPassthrough()
+                    .EnableUserInfoEndpointPassthrough()
+                    .EnableStatusCodePagesIntegration();
 
                 options.AddSamlPlugin(builder =>
                 {
                     //use quartz to prune old SAML messages every 14 days.
                     builder.PruneSamlMessages();
-                    
+
                     //Already added the DbContext above
                     builder.UseSamlEntityFrameworkCore()
-                        .AddSamlMessageDbContext(optionsBuilder =>
+                        .AddSamlDbContexts(optionsBuilder =>
                         {
-                            //Configure the database provider to use.
-                            optionsBuilder.UseSqlServer(defaultConnectionString, x =>x.MigrationsAssembly(typeof(Startup).Assembly.FullName));
-                        })
-                        .AddSamlConfigurationDbContext(optionsBuilder =>
-                        {
-                            //Configure the database provider to use.
-                            optionsBuilder.UseSqlServer(defaultConnectionString,
-                                x => x.MigrationsAssembly(typeof(Startup).Assembly.FullName));
+                            switch (dbProvider)
+                            {
+                                case DbProvider.SqlServer:
+                                    optionsBuilder.UseSqlServer(connectionString,
+                                        x => x.MigrationsAssembly(typeof(Startup).Assembly.FullName));
+                                    break;
+                                case DbProvider.MySql:
+                                    optionsBuilder.UseMySql(connectionString,
+                                        ServerVersion.AutoDetect(connectionString),
+                                        x => x.MigrationsAssembly(typeof(Startup).Assembly.FullName));
+                                    break;
+                                case DbProvider.PostgreSql:
+                                    optionsBuilder.UseNpgsql(connectionString,
+                                        x => x.MigrationsAssembly(typeof(Startup).Assembly.FullName));
+                                    break;
+                                case DbProvider.Sqlite:
+                                    optionsBuilder.UseSqlite(connectionString,
+                                        x => x.MigrationsAssembly(typeof(Startup).Assembly.FullName));
+                                    break;
+                                default:
+                                    throw new ArgumentOutOfRangeException(
+                                        $"{dbProvider} is not a supported database provider.");
+                            }
                         });
+
 
                     builder.ConfigureSamlOpenIddictServerOptions(serverOptions =>
+                    {
+                        serverOptions.HostOptions = new SamlHostUserInteractionOptions()
                         {
-                            serverOptions.HostOptions = new SamlHostUserInteractionOptions()
-                            {
-                                LoginUrl = "/Identity/Account/Login",
-                                LogoutUrl = "/connect/logout",
-                            };
+                            LoginUrl = "/Identity/Account/Login",
+                            LogoutUrl = "/connect/logout",
+                        };
 
-                            serverOptions.IdpOptions = new SamlIdpOptions()
-                            {
-                                Licensee = LicenseKey.Licensee,
-                                LicenseKey =LicenseKey.Key,
-                                UseIFramesForSlo = false
-
-                            };
-                        });
+                        serverOptions.IdpOptions = new SamlIdpOptions()
+                        {
+                            Licensee = LicenseKey.Licensee,
+                            LicenseKey = LicenseKey.Key,
+                            UseIFramesForSlo = false
+                        };
+                    });
 
                     builder.AddSamlAspIdentity<ApplicationUser>();
                 });
@@ -170,7 +203,7 @@ public class Startup
         services.AddHostedService<Worker>();
     }
 
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
         if (env.IsDevelopment())
         {
@@ -185,6 +218,7 @@ public class Startup
             // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
             //app.UseHsts();
         }
+
         app.UseHttpsRedirection();
         app.UseStaticFiles();
 
