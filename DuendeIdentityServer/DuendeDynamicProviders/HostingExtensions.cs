@@ -2,7 +2,6 @@ using System.Security.Cryptography.X509Certificates;
 using Duende.IdentityServer;
 using Rsk.AspNetCore.Authentication.Saml2p;
 using Rsk.Saml.DuendeIdentityServer.DynamicProviders;
-using Rsk.Saml.Samples;
 using Serilog;
 
 namespace DuendeDynamicProviders;
@@ -34,8 +33,8 @@ internal static class HostingExtensions
         isBuilder.AddSamlDynamicProvider(options =>
         {
             // unstorable/reusable data, such as license information and events. This will override the data stored
-            options.Licensee = LicenseKey.Licensee;
-            options.LicenseKey = LicenseKey.Key;
+            options.Licensee = "<insert here>";
+            options.LicenseKey = "<insert here>";
         })
 
             // Use EntityFramework store for storing identity providers

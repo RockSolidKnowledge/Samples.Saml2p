@@ -3,7 +3,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Rsk.AspNetCore.Authentication.Saml2p;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
-using Rsk.Saml.Samples;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,8 +12,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddAuthentication()
     .AddCookie("cookie")
     .AddSaml2p("saml2p", options => {
-        options.Licensee = LicenseKey.Licensee;
-        options.LicenseKey = LicenseKey.Key;
+        options.Licensee = "<insert here>";
+        options.LicenseKey = "<insert here>";
 
         options.IdentityProviderOptions = new IdpOptions
         {

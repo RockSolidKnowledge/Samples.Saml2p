@@ -1,7 +1,6 @@
 using Duende.IdentityServer.Configuration;
 using IdentityServerHost;
 using Rsk.Saml.Configuration;
-using Rsk.Saml.Samples;
 using Serilog;
 
 namespace IdentityServer;
@@ -31,8 +30,8 @@ internal static class HostingExtensions
             .AddTestUsers(TestUsers.Users)
             .AddSamlPlugin(options =>
             {
-                options.Licensee = LicenseKey.Licensee;
-                options.LicenseKey = LicenseKey.Key;
+                options.Licensee = "<insert here>";
+                options.LicenseKey = "<insert here>";
 
                 //Use Iterative SLO
                 options.UseIFramesForSlo = false;

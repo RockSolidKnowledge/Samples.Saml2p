@@ -5,9 +5,6 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\LicenseKey.cs" Link="LicenseKey.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Rsk.Saml" Version="10.0.0" />
+    <PackageReference Include="Rsk.Saml" Version="11.2.0-*" />
   </ItemGroup>
 </Project>

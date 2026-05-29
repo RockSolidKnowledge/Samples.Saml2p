@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Rsk.Saml.Configuration;
-using Rsk.Saml.Samples;
 using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.SystemConsole.Themes;
@@ -47,8 +46,8 @@ IIdentityServerBuilder idsrvBuilder = builder.Services.AddIdentityServer(options
 // Configure SAML Identity Provider and authorized Service Providers
 idsrvBuilder.AddSamlPlugin(options =>
     {
-        options.Licensee = LicenseKey.Licensee;
-        options.LicenseKey = LicenseKey.Key;
+        options.Licensee = "<insert here>";
+        options.LicenseKey = "<insert here>";
         options.WantAuthenticationRequestsSigned = false;
     })
     .AddInMemoryServiceProviders(Config.GetServiceProviders());
