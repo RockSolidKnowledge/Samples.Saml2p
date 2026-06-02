@@ -2,7 +2,6 @@ using Duende.IdentityServer;
 using Duende.IdentityServer.Configuration;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Rsk.Saml.Configuration;
-using Rsk.Saml.Samples;
 using Serilog;
 
 namespace DuendeIdP;
@@ -37,8 +36,8 @@ internal static class HostingExtensions
 
         isBuilder.AddSamlPlugin(options =>
             {
-                options.Licensee = LicenseKey.Licensee;
-                options.LicenseKey = LicenseKey.Key;
+                options.Licensee = "<insert here>";
+                options.LicenseKey = "<insert here>";
 
                 options.WantAuthenticationRequestsSigned = false;
             })

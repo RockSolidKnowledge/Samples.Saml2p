@@ -1,7 +1,6 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Cryptography.X509Certificates;
 using Rsk.AspNetCore.Authentication.Saml2p;
-using Rsk.Saml.Samples;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,8 +21,8 @@ builder.Services.AddAuthentication(options =>
     })    
     .AddSaml2p("saml", options =>
     {
-        options.Licensee = LicenseKey.Licensee;
-        options.LicenseKey = LicenseKey.Key;
+        options.Licensee = "<insert here>";
+        options.LicenseKey = "<insert here>";
 
         options.IdentityProviderMetadataAddress = "https://localhost:5001/saml/metadata";
 

@@ -14,7 +14,6 @@ using Rsk.Saml.OpenIddict.AspNetCore.Identity.Configuration.DependencyInjection;
 using Rsk.Saml.OpenIddict.Configuration.DependencyInjection;
 using openiddictidp.Data;
 using Rsk.Saml.OpenIddict.EntityFrameworkCore.Configuration.DependencyInjection;
-using Rsk.Saml.Samples;
 using static OpenIddict.Abstractions.OpenIddictConstants;
 
 namespace openiddictidp;
@@ -178,8 +177,8 @@ public class Startup
 
                         serverOptions.IdpOptions = new SamlIdpOptions()
                         {
-                            Licensee = LicenseKey.Licensee,
-                            LicenseKey = LicenseKey.Key,
+                            Licensee = "<insert here>",
+                            LicenseKey = "<insert here>",
                             UseIFramesForSlo = false
                         };
                     });

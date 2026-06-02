@@ -1,41 +1,75 @@
-# Sample projects implementing Rsk SAML component
+# Samples.Saml2p
 
-SAML2P service provider and identity provider implementations. We support various IdentityServer implementations, including Duende IdentityServer and OpenIddict. 
+This repository contains sample **Service Provider (SP)** and **Identity Provider (IdP)** implementations using the **Rsk.Saml** component with different IdentityServer-based stacks.
 
- The SAML2P component is available from [www.identityserver.com/products/saml2p](https://www.identityserver.com/products/saml2p).
+## What is in this repo
 
-
-The [master](https://github.com/RockSolidKnowledge/Samples.IdentityServer4.Saml2pIntegration/tree/master) branch currently uses  version 10.0 of the Saml component along with Duende IdentityServer version 7.1 and OpenIddict version 6.0. 
+- Standalone SP samples using `Rsk.Saml` for ASP.NET Core
+- IdP samples using:
+  - `Duende.IdentityServer`
+  - `Open.IdentityServer`
+  - `OpenIddict`
+- Examples for:
+  - SP-initiated SSO
+  - IdP-initiated SSO
+  - Multiple SAML schemes / multiple IdPs
+  - Dynamic provider scenarios
 
 ## Projects
 
-- **spWithIdpInitiated:** an ASP.NET Core website that can accept unsolicited SAML assertions sent via IdP-Initiated SSO
-- **spWithMultipleIdps:** an ASP.NET Core website that can authenticate a user using two different SAML Identity Providers
+### Service Provider samples
 
-- **DuendeIdentityServer**
-	- **DuendeIdP:** a Duende.IdentityServer implementation configured to act as a SAML Identity Provider with Service Provider configuration loaded from memory. This uses the Duende Automatic Key Management feature for signing key material. 
-	- **DuendeDynamicProviders:** A Duende.IdentityServer implementation acting as a SAML Service Provider with in-memory dynamic identity providers
-	- **OpenIddictIdP:** an OpenIddict implementation configured to act as an SAML Identity Provider with Service Provider configuration loaded from an SQL Server database using EntityFrameworkCore. 
+- `ServiceProvider/` - standalone SP sample using `Rsk.Saml`
+  - multiple SAML schemes
+  - per-scheme callback paths
+  - per-scheme metadata paths
+  - IdP-initiated SSO support
 
+### Duende IdentityServer samples
+
+- `DuendeIdentityServer/DuendeIdP/` - Duende IdentityServer as a SAML IdP
+- `DuendeIdentityServer/DuendeDynamicProviders/` - Duende IdentityServer as SP with dynamic providers
+- `DuendeIdentityServer/SLO/SamlOidcSLO/` - sample focused on SLO scenarios
+
+### Open.IdentityServer samples
+
+- `OpenIdentityServer/idp/` - Open.IdentityServer configured as a SAML IdP
+- `OpenIdentityServer/idpWithEf/` - Open.IdentityServer IdP with EF-backed configuration
+- `OpenIdentityServer/idpWithIdpInitiated/` - Open.IdentityServer IdP with IdP-initiated flow scenario
+- `OpenIdentityServer/sp/` - Open.IdentityServer-related SP sample
+
+### IdentityServer4 legacy samples
+
+- `IdentityServer4/idp/`
+- `IdentityServer4/idpWithEf/`
+- `IdentityServer4/idpWithIdpInitiated/`
+- `IdentityServer4/sp/`
+
+### OpenIddict sample
+
+- `OpenIddict/OpenIddictIdP/` - OpenIddict-based SAML IdP sample
+
+## Documentation
+
+- Rsk.Saml docs: <https://docs.identityserver.com/saml2p/>
+- IdentityServer as SAML IdP quickstart: <https://docs.identityserver.com/saml2p/quickstarts/identityServer/identityServerAsIdp/>
+- Product page / licensing: <https://www.identityserver.com/products/saml2p>
 
 ## Getting Started
 
-- [YouTube Tutorials](https://www.youtube.com/playlist?list=PLz9t0GSOz9eCGVZQnQBDg8KH_SRQmzfUm)
-- [Gettings Started article](https://www.identityserver.com/articles/saml-20-integration-with-identityserver4/)
-- [Documentation](https://www.identityserver.com/documentation/saml2p/)
+1. Pick a sample folder and open its local `README.md` first (for sample-specific setup).
+2. Add license values where required (`Licensee`, `LicenseKey`).
+3. Confirm certificate files used by that sample (`.cer` / `.pfx`).
+4. Start the selected sample project.
+
+Example run command:
+
+```powershell
+dotnet run --project .\ServiceProvider\ServiceProvider.csproj
+```
+
+> Note: launch URLs and runtime details differ by sample. Use each project README and launch settings as the source of truth.
 
 ## License Keys
-If you are using IdentityServer and would like a demo license, please sign up on our [products page](	https://www.identityserver.com/products/saml2p). Alternative for a demo license using OpenIddict use [this](https://www.openiddictcomponents.com/products/saml2p) link. You can also reach out to <sales@identityserver.com>.
 
-
-## Launch urls
-The launch urls for the sample projects are as follows:
-
-|Project|Launch Url|
-|---|---|
-|duende.idp|https://localhost:5003|
-|OpenIddict.Idp|https://localhost:55031|
-|Duende Dynamic providers|https://localhost:5004|
-|SPWithIdpInitiated|https://localhost:5001|
-|SpWithMultipleIds|https://localhost:5002|
-|SpWithSingleIdp|https://localhost:5002|
+For demo or production licensing, use the product page above or contact `sales@identityserver.com`.

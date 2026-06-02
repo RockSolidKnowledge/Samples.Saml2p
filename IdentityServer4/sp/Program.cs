@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Rsk.AspNetCore.Authentication.Saml2p;
 using Rsk.Saml.Configuration;
-using Rsk.Saml.Samples;
 using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.SystemConsole.Themes;
@@ -52,8 +51,8 @@ IIdentityServerBuilder idsrvBuilder = builder.Services.AddIdentityServer(options
 // OPTIONAL - only required if you want to be a SAML IdP too
 idsrvBuilder.AddSamlPlugin(options =>
     {
-        options.Licensee = LicenseKey.Licensee;
-        options.LicenseKey = LicenseKey.Key;
+        options.Licensee = "<insert here>";
+        options.LicenseKey = "<insert here>";
         options.WantAuthenticationRequestsSigned = false;
     })
     .AddInMemoryServiceProviders(Config.GetServiceProviders());
@@ -62,8 +61,8 @@ idsrvBuilder.AddSamlPlugin(options =>
 builder.Services.AddAuthentication()
     .AddSaml2p("saml2p", options =>
     {
-        options.Licensee = LicenseKey.Licensee;
-        options.LicenseKey = LicenseKey.Key;
+        options.Licensee = "<insert here>";
+        options.LicenseKey = "<insert here>";
 
         // The IdP you want to integrate with
         options.IdentityProviderOptions = new IdpOptions

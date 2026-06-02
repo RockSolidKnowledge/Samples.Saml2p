@@ -12,7 +12,6 @@ using Rsk.Saml.IdentityProvider.Storage.EntityFramework.DbContexts;
 using Rsk.Saml.IdentityProvider.Storage.EntityFramework;
 using Rsk.Saml.IdentityProvider.Storage.EntityFramework.Mappers;
 using Rsk.Saml.IdentityProvider.Storage.EntityFramework.Stores;
-using Rsk.Saml.Samples;
 using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.SystemConsole.Themes;
@@ -58,8 +57,8 @@ IIdentityServerBuilder idsrvBuilder = builder.Services.AddIdentityServer(options
 // Configure SAML Identity Provider and authorized Service Providers
 idsrvBuilder.AddSamlPlugin(options =>
     {
-        options.Licensee = LicenseKey.Licensee;
-        options.LicenseKey = LicenseKey.Key;
+        options.Licensee = "<insert here>";
+        options.LicenseKey = "<insert here>";
         options.WantAuthenticationRequestsSigned = false;
     })
     .AddServiceProviderStore<ServiceProviderStore>(); // Load authorized Service Providers from database
