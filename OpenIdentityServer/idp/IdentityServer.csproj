@@ -5,7 +5,7 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="Open.IdentityServer" Version="1.0.0-*"/>
+    <PackageReference Include="Open.IdentityServer" Version="1.0.*"/>
     <PackageReference Include="Rsk.Saml.OpenIdentityServer" Version="11.2.0-*"/>
     <PackageReference Include="Serilog.AspNetCore" Version="10.0.0"/>
     

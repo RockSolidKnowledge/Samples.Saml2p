@@ -2,9 +2,7 @@
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "spWithMultipleIdps", "spWithMultipleIdps\spWithMultipleIdps.csproj", "{BBC57AAD-BDF2-487E-ACAF-88C8F8C80D3F}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "spWithIdpInitiated", "spWithIdpInitiated\spWithIdpInitiated.csproj", "{5E1E1DBE-0B41-47D3-8590-3FD0BF63287D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceProvider", "ServiceProvider\ServiceProvider.csproj", "{5E1E1DBE-0B41-47D3-8590-3FD0BF63287D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityServer4", "IdentityServer4", "{EF06DDB3-96B6-406B-8C73-F5FC7015CF92}"
 EndProject
@@ -30,8 +28,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebClient.SAML.1", "DuendeI
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebClient.SAML.2", "DuendeIdentityServer\SLO\SamlOidcSLO\WebClient.SAML.2\WebClient.SAML.2.csproj", "{20851470-CF31-4F28-B2ED-E201814909E7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "spWithSingleIdp", "spWithSingleIdp\spWithSingleIdp.csproj", "{08734969-2F2A-4D9C-96F4-C2F4A2A68467}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OpenIddict", "OpenIddict", "{7E7271AB-9691-4F41-9311-200BD6CC8724}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenIddictIdP", "OpenIddict\OpenIddictIdP\OpenIddictIdP.csproj", "{5197A70C-DB0D-4045-9A72-AF3F80DD74E1}"
@@ -46,10 +42,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BBC57AAD-BDF2-487E-ACAF-88C8F8C80D3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BBC57AAD-BDF2-487E-ACAF-88C8F8C80D3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BBC57AAD-BDF2-487E-ACAF-88C8F8C80D3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BBC57AAD-BDF2-487E-ACAF-88C8F8C80D3F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5E1E1DBE-0B41-47D3-8590-3FD0BF63287D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5E1E1DBE-0B41-47D3-8590-3FD0BF63287D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E1E1DBE-0B41-47D3-8590-3FD0BF63287D}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -90,10 +82,6 @@ Global
 		{20851470-CF31-4F28-B2ED-E201814909E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{20851470-CF31-4F28-B2ED-E201814909E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{20851470-CF31-4F28-B2ED-E201814909E7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{08734969-2F2A-4D9C-96F4-C2F4A2A68467}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{08734969-2F2A-4D9C-96F4-C2F4A2A68467}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{08734969-2F2A-4D9C-96F4-C2F4A2A68467}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{08734969-2F2A-4D9C-96F4-C2F4A2A68467}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5197A70C-DB0D-4045-9A72-AF3F80DD74E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5197A70C-DB0D-4045-9A72-AF3F80DD74E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5197A70C-DB0D-4045-9A72-AF3F80DD74E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
